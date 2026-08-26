@@ -5,10 +5,14 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
   async rewrites() {
-    return [
-      { source: '/', destination: '/site.html' },
-      { source: '/index.html', destination: '/site.html' },
-    ];
+    return {
+      beforeFiles: [
+        { source: '/', destination: '/site.html' },
+        { source: '/index.html', destination: '/site.html' },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
   },
 };
 
