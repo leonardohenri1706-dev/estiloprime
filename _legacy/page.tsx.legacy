@@ -1,0 +1,1495 @@
+"use client";
+
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  ShoppingBag,
+  Sparkles,
+  MapPin,
+  MessageCircle,
+  Instagram,
+  Plus,
+  Search,
+  Filter,
+  Check,
+  Copy,
+  Send,
+  X,
+  Eye,
+  Shield,
+  Truck,
+  PlusCircle,
+  Trash2,
+  Maximize2,
+  Lock,
+  ArrowRight,
+  Camera,
+  ChevronLeft,
+  ChevronRight,
+  ArrowDownRight
+} from "lucide-react";
+import confetti from "canvas-confetti";
+
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  categoryName: string;
+  price: number;
+  oldPrice: number;
+  badge: string;
+  description: string;
+  image: string;
+  sizes: string[];
+  stock: Record<string, number>;
+}
+
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  size: string;
+  quantity: number;
+}
+
+const HERO_SLIDES = [
+  {
+    badge: "NOVA COLEÇÃO SUMMER 2026 // MENSWEAR",
+    titlePrefix: "POLOS TECH &",
+    titleHighlight: "SMART CASUAL",
+    titleSuffix: "DE ALTA PRESENÇA.",
+    desc: "Malha estruturada de toque gelado com elastano, zíper frontal inoxidável e caimento alinhado ao peitoral masculino. Entrega grátis em Itaiçaba-CE.",
+    cta: "Ver Polos na Arara",
+    category: "polos",
+    image: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=2000&q=85",
+  },
+  {
+    badge: "STREETWEAR CONTEMPORÂNEO // 240G/M²",
+    titlePrefix: "CAMISETAS OVERSIZED",
+    titleHighlight: "BOXY CUT",
+    titleSuffix: "OMBRO CAÍDO & GOLA GROSSA.",
+    desc: "A modelagem ampla e robusta que domina o streetwear mundial. 100% algodão penteado pesado com caimento reto e imponente.",
+    cta: "Ver Oversized",
+    category: "oversized",
+    image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=2000&q=85",
+  },
+  {
+    badge: "CASUAL RESORT // ITAIÇABA - CE",
+    titlePrefix: "BERMUDAS EM LINHO",
+    titleHighlight: "& ALFAIATARIA",
+    titleSuffix: "FRESCO & SOFISTICADO.",
+    desc: "Linho nobre com corte acima do joelho e cós com cordão de ajuste. O equilíbrio perfeito entre elegância e frescor para o clima cearense.",
+    cta: "Ver Bermudas de Linho",
+    category: "bermudas",
+    image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=2000&q=85",
+  },
+  {
+    badge: "ESSENTIAL WEAR // 100% ALGODÃO PENTEADO",
+    titlePrefix: "BÁSICAS SLIM FIT",
+    titleHighlight: "FIO 30.1 NOBRE",
+    titleSuffix: "TOQUE PELETIZADO.",
+    desc: "Algodão nobre com caimento limpo e suave na cintura. A peça indispensável para o dia a dia do homem moderno.",
+    cta: "Ver Linha Básica",
+    category: "basicas",
+    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=2000&q=85",
+  },
+];
+
+const INITIAL_PRODUCTS: Product[] = [
+  {
+    id: 1,
+    name: "Polo Tech Black Zíper Masculina",
+    category: "polos",
+    categoryName: "Polo Tech Smart Casual",
+    price: 89.9,
+    oldPrice: 119.9,
+    badge: "MAIS VENDIDO",
+    description:
+      "Modelagem masculina com caimento impecável no peitoral e braços. Malha estruturada com elastano e tecnologia anti-suor. Zíper frontal inoxidável e gola canelada anti-deformação.",
+    image:
+      "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=900&q=80",
+    sizes: ["P", "M", "G", "GG"],
+    stock: { P: 3, M: 6, G: 4, GG: 2 },
+  },
+  {
+    id: 2,
+    name: "Camiseta Streetwear Oversized Vintage Black Masculina",
+    category: "oversized",
+    categoryName: "Streetwear Oversized",
+    price: 79.9,
+    oldPrice: 99.9,
+    badge: "LANÇAMENTO",
+    description:
+      "Corte boxy streetwear masculino com ombros caídos e gola canelada grossa de 3cm. 100% algodão penteado de alta gramatura (240g/m²).",
+    image:
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80",
+    sizes: ["P", "M", "G", "GG"],
+    stock: { P: 5, M: 8, G: 7, GG: 3 },
+  },
+  {
+    id: 3,
+    name: "Polo Tech Sand Areia Zíper Masculina",
+    category: "polos",
+    categoryName: "Polo Tech Smart Casual",
+    price: 89.9,
+    oldPrice: 119.9,
+    badge: "DESTAQUE",
+    description:
+      "Visual masculino elegante e moderno em tom areia nobre. Ideal para compor looks casuais de presença com bermuda de linho ou alfaiataria.",
+    image:
+      "https://images.unsplash.com/photo-1625910513413-72236a9cf580?auto=format&fit=crop&w=900&q=80",
+    sizes: ["P", "M", "G", "GG"],
+    stock: { P: 2, M: 5, G: 3, GG: 1 },
+  },
+  {
+    id: 4,
+    name: "Bermuda Linho Areia Alfaiataria Masculina",
+    category: "bermudas",
+    categoryName: "Bermudas Masculinas",
+    price: 79.9,
+    oldPrice: 109.9,
+    badge: "ALFAIATARIA",
+    description:
+      "Bermuda masculina em linho misto com corte alfaiataria acima do joelho, cós elástico com cordão ajustável e bolsos faca profundos.",
+    image:
+      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=80",
+    sizes: ["38", "40", "42", "44"],
+    stock: { "38": 3, "40": 5, "42": 4, "44": 2 },
+  },
+  {
+    id: 5,
+    name: "Camiseta Slim Fit Algodão Penteado Off-White Masculina",
+    category: "basicas",
+    categoryName: "Básicas & Slim Fit",
+    price: 59.9,
+    oldPrice: 79.9,
+    badge: "ESSENCIAL",
+    description:
+      "Corte tradicional casual masculino em algodão fio 30.1 penteado com toque peletizado ultramacio. Caimento limpo e comprimento exato.",
+    image:
+      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=900&q=80",
+    sizes: ["P", "M", "G", "GG"],
+    stock: { P: 4, M: 6, G: 5, GG: 3 },
+  },
+  {
+    id: 6,
+    name: "Camiseta Oversized Acid Wash Heavyweight Masculina",
+    category: "oversized",
+    categoryName: "Streetwear Oversized",
+    price: 84.9,
+    oldPrice: 110.0,
+    badge: "EXCLUSIVO",
+    description:
+      "Lavagem mineral acid wash exclusiva da Estilo Prime. Estética streetwear pura com caimento robusto no corpo masculino.",
+    image:
+      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=900&q=80",
+    sizes: ["P", "M", "G", "GG"],
+    stock: { P: 2, M: 4, G: 3, GG: 1 },
+  },
+  {
+    id: 7,
+    name: "Bermuda Moletom Heavyweight Black Masculina",
+    category: "bermudas",
+    categoryName: "Bermudas Masculinas",
+    price: 74.9,
+    oldPrice: 95.0,
+    badge: "CONFORT",
+    description:
+      "Moletom 3 cabos premium pesado com corte a laser na barra e caimento streetwear despojado.",
+    image:
+      "https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=900&q=80",
+    sizes: ["P", "M", "G", "GG"],
+    stock: { P: 4, M: 5, G: 4, GG: 2 },
+  },
+  {
+    id: 8,
+    name: "Boné Dad Hat Minimalist Estilo Prime",
+    category: "acessorios",
+    categoryName: "Acessórios Masculinos",
+    price: 49.9,
+    oldPrice: 69.9,
+    badge: "ACESSÓRIO",
+    description:
+      "Sarja peletizada 100% algodão com fecho fivela em metal envelhecido e bordado frontal do monograma EP.",
+    image:
+      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=900&q=80",
+    sizes: ["Único"],
+    stock: { "Único": 10 },
+  },
+];
+
+const DELIVERY_OPTIONS = [
+  { id: "itaiçaba", label: "🛵 Entrega em Itaiçaba — GRÁTIS", fee: 0 },
+  { id: "balcao", label: "🏪 Retirada no Balcão da Loja — GRÁTIS", fee: 0 },
+  { id: "jaguaruana", label: "📍 Jaguaruana — R$ 15,00", fee: 15 },
+  { id: "russas", label: "📍 Russas — R$ 20,00", fee: 20 },
+  { id: "palhano", label: "📍 Palhano — R$ 15,00", fee: 15 },
+  { id: "aracati", label: "📍 Aracati — R$ 25,00", fee: 25 },
+];
+
+export default function EstiloPrimePage() {
+  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("todos");
+  const [selectedSizeFilter, setSelectedSizeFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isSliderHovered, setIsSliderHovered] = useState(false);
+
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [quickViewSize, setQuickViewSize] = useState<string>("M");
+
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [selectedDelivery, setSelectedDelivery] = useState("itaiçaba");
+  const [orderModalOpen, setOrderModalOpen] = useState(false);
+  const [generatedOrder, setGeneratedOrder] = useState<{
+    id: string;
+    text: string;
+    whatsappUrl: string;
+    total: number;
+  } | null>(null);
+  const [copiedPix, setCopiedPix] = useState(false);
+
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [newProdName, setNewProdName] = useState("");
+  const [newProdCat, setNewProdCat] = useState("polos");
+  const [newProdPrice, setNewProdPrice] = useState("");
+
+  useEffect(() => {
+    if (isSliderHovered) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, [isSliderHovered]);
+
+  const activeSlide = HERO_SLIDES[currentSlide];
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((p) => {
+      const matchCat =
+        selectedCategory === "todos" || p.category === selectedCategory;
+      const matchSize =
+        selectedSizeFilter === "all" || p.sizes.includes(selectedSizeFilter);
+      const query = searchQuery.toLowerCase().trim();
+      const matchSearch =
+        !query ||
+        p.name.toLowerCase().includes(query) ||
+        p.description.toLowerCase().includes(query) ||
+        p.categoryName.toLowerCase().includes(query);
+      return matchCat && matchSize && matchSearch;
+    });
+  }, [products, selectedCategory, selectedSizeFilter, searchQuery]);
+
+  const cartSubtotal = useMemo(() => {
+    return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  }, [cart]);
+
+  const currentDeliveryFee = useMemo(() => {
+    const option = DELIVERY_OPTIONS.find((d) => d.id === selectedDelivery);
+    return option ? option.fee : 0;
+  }, [selectedDelivery]);
+
+  const cartTotal = cartSubtotal + currentDeliveryFee;
+  const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  const addToCart = (product: Product, size: string) => {
+    setCart((prev) => {
+      const existing = prev.find(
+        (item) => item.id === product.id && item.size === size
+      );
+      if (existing) {
+        return prev.map((item) =>
+          item.id === product.id && item.size === size
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [
+        ...prev,
+        {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          size: size,
+          quantity: 1,
+        },
+      ];
+    });
+
+    confetti({
+      particleCount: 25,
+      spread: 50,
+      origin: { y: 0.85 },
+      colors: ["#c59b27", "#dfb744", "#ffffff"],
+    });
+  };
+
+  const updateCartQty = (index: number, delta: number) => {
+    setCart((prev) => {
+      const item = prev[index];
+      if (!item) return prev;
+      const newQty = item.quantity + delta;
+      if (newQty <= 0) {
+        return prev.filter((_, i) => i !== index);
+      }
+      return prev.map((it, i) =>
+        i === index ? { ...it, quantity: newQty } : it
+      );
+    });
+  };
+
+  const removeCartItem = (index: number) => {
+    setCart((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleOpenQuickView = (product: Product) => {
+    setQuickViewProduct(product);
+    setQuickViewSize(product.sizes[0] || "M");
+  };
+
+  const handleGenerateComanda = () => {
+    if (cart.length === 0) return;
+
+    const cName = customerName.trim() || "Cliente Estilo Prime";
+    const cPhone = customerPhone.trim() || "(88) 99876-5432";
+    const deliveryOpt =
+      DELIVERY_OPTIONS.find((d) => d.id === selectedDelivery) ||
+      DELIVERY_OPTIONS[0];
+
+    const orderNum = `#EP-${Math.floor(1000 + Math.random() * 9000)}`;
+    const now = new Date();
+    const dateStr = `${now.toLocaleDateString("pt-BR")} às ${now.toLocaleTimeString(
+      "pt-BR",
+      { hour: "2-digit", minute: "2-digit" }
+    )}`;
+
+    const itemsStr = cart
+      .map(
+        (item) =>
+          `• ${item.quantity}x ${item.name} (Tamanho: ${item.size}) — R$ ${(
+            item.price * item.quantity
+          )
+            .toFixed(2)
+            .replace(".", ",")}`
+      )
+      .join("\n");
+
+    const deliveryFormatted =
+      deliveryOpt.fee === 0
+        ? "Entrega em Itaiçaba — GRÁTIS (R$ 0,00)"
+        : `${deliveryOpt.label.replace(/📍|🛵|🏪/g, "").trim()}`;
+
+    const comandaText = `📋 *COMANDA DE PEDIDO — ESTILO PRIME*
+━━━━━━━━━━━━━━━━━━━━━
+*Pedido:* ${orderNum}
+*Cliente:* ${cName} (${cPhone})
+*Data:* ${dateStr}
+━━━━━━━━━━━━━━━━━━━━━
+🛍️ *ITENS DO PEDIDO (MODA MASCULINA):*
+${itemsStr}
+━━━━━━━━━━━━━━━━━━━━━
+🛵 *FORMA DE RECEBIMENTO:*
+${deliveryFormatted}
+━━━━━━━━━━━━━━━━━━━━━
+💰 *VALOR TOTAL: R$ ${cartTotal.toFixed(2).replace(".", ",")}*
+*Chave Pix:* 88999999999 (Estilo Prime)
+━━━━━━━━━━━━━━━━━━━━━
+🔗 *Acompanhe seu pedido:*
+https://estiloprime.store/pedido/${orderNum.replace("#", "").toLowerCase()}`;
+
+    const whatsappUrl = `https://wa.me/5588999999999?text=${encodeURIComponent(
+      comandaText
+    )}`;
+
+    setGeneratedOrder({
+      id: orderNum,
+      text: comandaText,
+      whatsappUrl: whatsappUrl,
+      total: cartTotal,
+    });
+
+    setIsCartOpen(false);
+    setOrderModalOpen(true);
+    setCart([]);
+
+    confetti({
+      particleCount: 60,
+      spread: 80,
+      origin: { y: 0.6 },
+      colors: ["#c59b27", "#dfb744", "#ffffff"],
+    });
+  };
+
+  const copyPixKey = () => {
+    navigator.clipboard.writeText("88999999999").then(() => {
+      setCopiedPix(true);
+      setTimeout(() => setCopiedPix(false), 2500);
+    });
+  };
+
+  const handleAdminAddProduct = () => {
+    if (!newProdName || !newProdPrice) return;
+    const priceNum = parseFloat(newProdPrice);
+    if (isNaN(priceNum)) return;
+
+    const catMap: Record<string, string> = {
+      polos: "Polo Tech Smart Casual",
+      oversized: "Streetwear Oversized",
+      basicas: "Básicas & Slim Fit",
+      bermudas: "Bermudas Masculinas",
+      acessorios: "Acessórios Masculinos",
+    };
+
+    const newProd: Product = {
+      id: Date.now(),
+      name: `${newProdName} Masculina`,
+      category: newProdCat,
+      categoryName: catMap[newProdCat] || "Moda Masculina",
+      price: priceNum,
+      oldPrice: priceNum * 1.25,
+      badge: "NOVIDADE",
+      description:
+        "Nova peça masculina recém-chegada na arara da Estilo Prime. Qualidade extrema, corte masculino exclusivo e durabilidade superior.",
+      image:
+        "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80",
+      sizes: ["P", "M", "G", "GG"],
+      stock: { P: 3, M: 5, G: 4, GG: 2 },
+    };
+
+    setProducts((prev) => [newProd, ...prev]);
+    setNewProdName("");
+    setNewProdPrice("");
+  };
+
+  return (
+    <div className="bg-[#08080a] text-[#f2f2f5] min-h-screen antialiased flex flex-col justify-between w-full bg-grain">
+      
+      {/* 1. TOP ANNOUNCEMENT BAR */}
+      <div className="bg-[#0e0f12]/95 border-b border-white/[0.06] text-xs py-2 px-3 sm:px-4 text-center sticky top-0 z-50 w-full backdrop-blur-md">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4 text-[11px] sm:text-xs">
+          <div className="hidden md:flex items-center gap-2 text-neutral-400 font-mono">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span className="uppercase tracking-widest text-[10px] font-semibold text-neutral-300">ESTILO PRIME • MENSWEAR</span>
+          </div>
+          
+          <div className="flex items-center justify-center gap-2 mx-auto md:mx-0">
+            <span className="px-2 py-0.5 rounded bg-white/[0.06] text-[#dfb744] font-mono font-bold text-[10px] uppercase border border-white/[0.08]">
+              ITAIÇABA - CE
+            </span>
+            <span className="text-neutral-300 truncate">
+              Entrega Grátis na cidade <strong>(R$ 0,00)</strong> • Fechamento direto no WhatsApp
+            </span>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-4 text-neutral-400 font-mono text-[11px]">
+            <a href="https://www.instagram.com/estiloprime.store/" target="_blank" rel="noopener noreferrer" className="hover:text-[#dfb744] flex items-center gap-1.5 transition-colors">
+              <Instagram className="w-3.5 h-3.5 text-neutral-400" /> @estiloprime.store
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. NAVBAR COM ULTRA BLUR */}
+      <header className="sticky top-8 z-40 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div className="glass-navbar rounded-2xl sm:rounded-3xl h-18 sm:h-20 px-4 sm:px-6 flex items-center justify-between border border-white/[0.08] shadow-2xl my-2">
+          
+          <a href="#" className="flex items-center gap-3 group cursor-pointer">
+            <div className="w-10 h-10 rounded-xl bg-neutral-900 border border-white/[0.1] flex items-center justify-center group-hover:border-[#c59b27]/60 transition-colors flex-shrink-0">
+              <svg viewBox="0 0 44 44" className="w-6 h-6 text-[#dfb744] fill-current">
+                <path d="M7 15 L14 26 L22 13 L30 26 L37 15 L35 31 L9 31 Z" fill="#c59b27" />
+                <circle cx="22" cy="11" r="2.5" fill="#dfb744" />
+                <circle cx="7" cy="13" r="2" fill="#dfb744" />
+                <circle cx="37" cy="13" r="2" fill="#dfb744" />
+                <rect x="9" y="32.5" width="26" height="2.5" rx="1" fill="#dfb744" />
+              </svg>
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5">
+                <span className="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-white group-hover:text-[#dfb744] transition-colors">
+                  ESTILO PRIME
+                </span>
+                <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-white/[0.06] text-neutral-300 border border-white/[0.08]">
+                  MEN
+                </span>
+              </div>
+              <span className="text-[9px] font-mono text-neutral-400 tracking-wider block">
+                @estiloprime.store • Itaiçaba
+              </span>
+            </div>
+          </a>
+
+          <nav className="hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-full bg-black/40 border border-white/[0.06] text-xs font-semibold uppercase tracking-wider text-neutral-300">
+            <a href="#hero-slider" className="px-3.5 py-1.5 rounded-full hover:bg-white/[0.08] hover:text-white transition-all flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#dfb744]" /> Destaques
+            </a>
+            <a href="#colecoes" className="px-3.5 py-1.5 rounded-full hover:bg-white/[0.08] hover:text-white transition-all">
+              Coleções
+            </a>
+            <a href="#catalogo" className="px-3.5 py-1.5 rounded-full hover:bg-white/[0.08] hover:text-white transition-all">
+              Catálogo
+            </a>
+            <a href="#lookbook" className="px-3.5 py-1.5 rounded-full hover:bg-white/[0.08] hover:text-white transition-all">
+              Lookbook
+            </a>
+            <a href="#concept-store" className="px-3.5 py-1.5 rounded-full hover:bg-white/[0.08] hover:text-white transition-all">
+              A Loja
+            </a>
+          </nav>
+
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button onClick={() => setIsAdminOpen(true)} className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-xs text-neutral-400 hover:text-white font-mono">
+              <Shield className="w-3.5 h-3.5" />
+              <span>Admin</span>
+            </button>
+
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl btn-matte-gold font-bold text-xs uppercase tracking-wider shadow-md"
+            >
+              <ShoppingBag className="w-4 h-4 text-black" />
+              <span className="hidden sm:inline font-heading font-extrabold text-black">Comanda</span>
+              <span className="w-5 h-5 rounded-full bg-black text-[#dfb744] text-[11px] font-mono font-bold flex items-center justify-center">
+                {cartItemCount}
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </header>
+
+      {/* 3. HERO SLIDER COM TIPOGRAFIA SYNE */}
+      <section
+        id="hero-slider"
+        className="relative min-h-[75vh] sm:min-h-[85vh] lg:min-h-[88vh] flex items-center justify-center overflow-hidden bg-[#08080a] w-full mt-2"
+        onMouseEnter={() => setIsSliderHovered(true)}
+        onMouseLeave={() => setIsSliderHovered(false)}
+      >
+        <div className="absolute inset-0 w-full h-full overflow-hidden">
+          {HERO_SLIDES.map((slide, idx) => (
+            <div
+              key={idx}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+                idx === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-102"
+              }`}
+            >
+              <img
+                src={slide.image}
+                alt={slide.titlePrefix}
+                className="w-full h-full object-cover object-center filter brightness-[0.68] transition-transform duration-1000"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#08080a]/95 via-[#08080a]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-black/40" />
+            </div>
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-20 py-12 sm:py-16">
+          <div className="max-w-2xl text-left space-y-4 sm:space-y-5 animate-in fade-in duration-500">
+            
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] sm:text-[11px] font-mono tracking-widest text-[#dfb744] uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c59b27]" />
+              <span>{activeSlide.badge}</span>
+            </div>
+
+            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.04] uppercase">
+              {activeSlide.titlePrefix} <br />
+              <span className="text-[#dfb744]">
+                {activeSlide.titleHighlight}
+              </span>
+              <br />{activeSlide.titleSuffix}
+            </h1>
+
+            <p className="text-neutral-300 text-xs sm:text-sm lg:text-base max-w-lg leading-relaxed font-normal">
+              {activeSlide.desc}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+              <a
+                href="#catalogo"
+                onClick={() => setSelectedCategory(activeSlide.category)}
+                className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl btn-matte-gold text-black font-heading font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 group shadow-md"
+              >
+                <span>{activeSlide.cta}</span>
+                <ArrowDownRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform" />
+              </a>
+
+              <a
+                href="#lookbook"
+                className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] text-neutral-200 font-semibold text-xs flex items-center justify-center gap-2 backdrop-blur-md"
+              >
+                <Camera className="w-4 h-4 text-[#dfb744]" />
+                <span>Ver Lookbook</span>
+              </a>
+            </div>
+
+            <div className="flex items-center gap-4 pt-4 sm:pt-6 font-mono text-xs text-neutral-400">
+              <span className="font-bold text-[#dfb744]">
+                0{currentSlide + 1}
+              </span>
+              <div className="w-28 sm:w-36 h-1 bg-white/[0.1] rounded-full overflow-hidden relative">
+                <div
+                  className="h-full bg-[#c59b27] rounded-full transition-all duration-300"
+                  style={{
+                    width: `${((currentSlide + 1) / HERO_SLIDES.length) * 100}%`,
+                  }}
+                />
+              </div>
+              <span>0{HERO_SLIDES.length}</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div className="absolute bottom-6 right-4 sm:bottom-8 sm:right-8 z-30 flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={() =>
+              setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)
+            }
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-black/60 hover:bg-black/80 border border-white/[0.1] text-neutral-300 hover:text-white flex items-center justify-center backdrop-blur-md"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() =>
+              setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length)
+            }
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl btn-matte-gold flex items-center justify-center font-bold"
+          >
+            <ChevronRight className="w-5 h-5 text-black" />
+          </button>
+        </div>
+
+      </section>
+
+      {/* 4. COLEÇÕES MASCULINAS */}
+      <section id="colecoes" className="py-14 sm:py-20 bg-[#0e0f12] border-y border-white/[0.06] w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div>
+              <span className="text-xs font-mono font-bold text-[#dfb744] uppercase tracking-widest block mb-1">
+                CURADORIA POR CATEGORIA
+              </span>
+              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white uppercase">
+                Coleções de Vestuário Masculino
+              </h2>
+            </div>
+            <p className="text-neutral-400 text-xs sm:text-sm max-w-md">
+              Peças estruturadas com foco no caimento corporal masculino, tecidos nobres e durabilidade.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div
+              className="group relative rounded-2xl overflow-hidden glass-card transition-all cursor-pointer"
+              onClick={() => setSelectedCategory("polos")}
+            >
+              <div className="h-80 sm:h-96 overflow-hidden relative">
+                <img
+                  src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=800&q=80"
+                  alt="Polos Tech Masculinas"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e0f12] via-[#0e0f12]/40 to-transparent" />
+              </div>
+              <div className="absolute bottom-5 left-5 right-5 text-left">
+                <span className="text-[10px] font-mono text-[#dfb744] font-bold uppercase tracking-widest block mb-1">01. SMART CASUAL</span>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-white mb-1.5 uppercase">Polos Tech com Zíper</h3>
+                <p className="text-neutral-300 text-xs mb-3 line-clamp-2">Malha estruturada com elastano anti-suor e zíper frontal inoxidável.</p>
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-[#dfb744] group-hover:translate-x-1 transition-transform">
+                  Explorar Polos <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </div>
+
+            <div
+              className="group relative rounded-2xl overflow-hidden glass-card transition-all cursor-pointer"
+              onClick={() => setSelectedCategory("oversized")}
+            >
+              <div className="h-80 sm:h-96 overflow-hidden relative">
+                <img
+                  src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80"
+                  alt="Camisetas Oversized Masculinas"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e0f12] via-[#0e0f12]/40 to-transparent" />
+              </div>
+              <div className="absolute bottom-5 left-5 right-5 text-left">
+                <span className="text-[10px] font-mono text-neutral-400 font-bold uppercase tracking-widest block mb-1">02. STREETWEAR</span>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-white mb-1.5 uppercase">Camisetas Oversized Boxy</h3>
+                <p className="text-neutral-300 text-xs mb-3 line-clamp-2">Ombros caídos, gola grossa de 3cm e 100% algodão penteado 240g/m².</p>
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-[#dfb744] group-hover:translate-x-1 transition-transform">
+                  Explorar Oversized <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </div>
+
+            <div
+              className="group relative rounded-2xl overflow-hidden glass-card transition-all cursor-pointer"
+              onClick={() => setSelectedCategory("bermudas")}
+            >
+              <div className="h-80 sm:h-96 overflow-hidden relative">
+                <img
+                  src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80"
+                  alt="Bermudas Masculinas Linho e Moletom"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e0f12] via-[#0e0f12]/40 to-transparent" />
+              </div>
+              <div className="absolute bottom-5 left-5 right-5 text-left">
+                <span className="text-[10px] font-mono text-[#dfb744] font-bold uppercase tracking-widest block mb-1">03. CASUAL RESORT</span>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-white mb-1.5 uppercase">Bermudas Linho &amp; Moletom</h3>
+                <p className="text-neutral-300 text-xs mb-3 line-clamp-2">Corte alfaiataria masculino acima do joelho e cós elástico com cordão ajustável.</p>
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-[#dfb744] group-hover:translate-x-1 transition-transform">
+                  Explorar Bermudas <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5. CATÁLOGO */}
+      <section id="catalogo" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#dfb744] uppercase tracking-widest mb-1">
+              <ShoppingBag className="w-4 h-4" /> ARARA DIGITAL ESTILO PRIME
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white uppercase">
+              Catálogo Masculino
+            </h2>
+            <p className="text-neutral-400 text-xs sm:text-sm mt-1">
+              Escolha suas peças masculinas, selecione o tamanho e feche no WhatsApp com entrega grátis em Itaiçaba.
+            </p>
+          </div>
+
+          <div className="relative w-full md:w-80">
+            <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Buscar polo masculina, oversized..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-neutral-900/80 border border-white/[0.08] text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-[#c59b27]"
+            />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-4 scrollbar-none">
+          {[
+            { id: "todos", label: "Todas as Peças" },
+            { id: "polos", label: "Polos Tech (Zíper)" },
+            { id: "oversized", label: "Streetwear Oversized" },
+            { id: "basicas", label: "Básicas & Slim" },
+            { id: "bermudas", label: "Bermudas Masculinas" },
+            { id: "acessorios", label: "Acessórios" },
+          ].map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all font-heading ${
+                selectedCategory === cat.id
+                  ? "bg-[#c59b27] text-black"
+                  : "bg-neutral-900 border border-white/[0.08] text-neutral-300 hover:text-white"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2 mb-8 text-xs font-medium text-neutral-400 flex-wrap">
+          <span className="flex items-center gap-1 font-mono">
+            <Filter className="w-3.5 h-3.5" /> Grade:
+          </span>
+          {["all", "P", "M", "G", "GG", "38", "40", "42", "44"].map((size) => (
+            <button
+              key={size}
+              onClick={() => setSelectedSizeFilter(size)}
+              className={`px-2.5 py-1 rounded-md text-xs font-bold font-mono transition-all ${
+                selectedSizeFilter === size
+                  ? "bg-white/[0.08] text-[#dfb744] border border-white/[0.1]"
+                  : "bg-neutral-900 text-neutral-300 border border-white/[0.06] hover:border-white/[0.15]"
+              }`}
+            >
+              {size === "all" ? "Todos" : size}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          {filteredProducts.map((product) => {
+            const defaultSize = product.sizes[0] || "M";
+            return (
+              <div
+                key={product.id}
+                className="rounded-2xl glass-card p-3 sm:p-4 transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between"
+              >
+                <div
+                  className="relative w-full h-64 sm:h-72 lg:h-80 rounded-xl overflow-hidden bg-neutral-900 cursor-pointer mb-3 sm:mb-4"
+                  onClick={() => handleOpenQuickView(product)}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 filter brightness-95"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  
+                  <div className="absolute top-2.5 left-2.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded bg-black/80 border border-white/10 text-[9px] sm:text-[10px] font-mono font-bold text-[#dfb744] uppercase">
+                    {product.badge}
+                  </div>
+
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <span className="px-3.5 py-2 rounded-xl btn-matte-gold text-black text-xs font-heading font-extrabold uppercase flex items-center gap-1.5">
+                      <Eye className="w-4 h-4" /> Ver Caimento
+                    </span>
+                  </div>
+
+                  <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1">
+                    {product.sizes.map((s) => (
+                      <span
+                        key={s}
+                        className="px-1.5 py-0.5 rounded bg-black/70 border border-white/10 text-[9px] font-mono text-neutral-300"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-1.5 sm:space-y-2">
+                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-neutral-400">
+                    <span>{product.categoryName}</span>
+                    <span className="text-emerald-400 font-semibold">Frete Grátis</span>
+                  </div>
+
+                  <h3 className="font-heading text-sm sm:text-base font-bold text-white line-clamp-1 group-hover:text-[#dfb744] transition-colors uppercase">
+                    {product.name}
+                  </h3>
+
+                  <div className="flex items-baseline gap-2 pt-1 font-mono">
+                    <span className="text-base sm:text-lg font-bold text-white">
+                      R$ {product.price.toFixed(2).replace(".", ",")}
+                    </span>
+                    <span className="text-[11px] sm:text-xs text-neutral-500 line-through">
+                      R$ {product.oldPrice.toFixed(2).replace(".", ",")}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="pt-3 sm:pt-4 border-t border-white/[0.06] mt-3 flex items-center gap-2">
+                  <button
+                    onClick={() => addToCart(product, defaultSize)}
+                    className="flex-1 py-2 sm:py-2.5 rounded-xl btn-matte-gold text-black font-heading font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-1"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> Add ({defaultSize})
+                  </button>
+                  <button
+                    onClick={() => handleOpenQuickView(product)}
+                    className="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-neutral-300 hover:text-white border border-white/[0.06]"
+                  >
+                    <Maximize2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+      </section>
+
+      {/* 6. LOOKBOOK */}
+      <section id="lookbook" className="py-14 sm:py-20 bg-[#0e0f12] border-t border-white/[0.06] w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+            <span className="text-xs font-mono font-bold text-[#dfb744] uppercase tracking-widest block mb-1">
+              LOOKBOOK EDITORIAL // 100% MENSWEAR
+            </span>
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white uppercase">
+              Estética &amp; Caimento
+            </h2>
+            <p className="text-neutral-400 text-xs sm:text-sm mt-2">
+              Combinações pensadas para o homem cearense que valoriza corte alinhado, conforto térmico e autenticidade.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="rounded-2xl overflow-hidden glass-card group">
+              <div className="h-80 sm:h-96 overflow-hidden relative">
+                <img
+                  src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"
+                  alt="Look Smart Casual Masculino"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e0f12] via-[#0e0f12]/30 to-transparent" />
+              </div>
+              <div className="p-5 text-left">
+                <span className="text-[10px] font-mono text-[#dfb744] font-bold uppercase">LOOK 01 • SMART CASUAL</span>
+                <h4 className="font-heading text-lg font-bold text-white mt-1 uppercase">Polo Tech + Calça Alfaiataria</h4>
+                <p className="text-xs text-neutral-300 mt-1">Combinação elegante para eventos, noites e momentos casuais refinados.</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden glass-card group">
+              <div className="h-80 sm:h-96 overflow-hidden relative">
+                <img
+                  src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=800&q=80"
+                  alt="Look Streetwear Oversized Masculino"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e0f12] via-[#0e0f12]/30 to-transparent" />
+              </div>
+              <div className="p-5 text-left">
+                <span className="text-[10px] font-mono text-neutral-400 font-bold uppercase">LOOK 02 • STREETWEAR BOXY</span>
+                <h4 className="font-heading text-lg font-bold text-white mt-1 uppercase">Camiseta Oversized + Bermuda Moletom</h4>
+                <p className="text-xs text-neutral-300 mt-1">A presença marcante das golas grossas caneladas e ombros caídos 240g/m².</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden glass-card group">
+              <div className="h-80 sm:h-96 overflow-hidden relative">
+                <img
+                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80"
+                  alt="Look Resort Linho Masculino"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e0f12] via-[#0e0f12]/30 to-transparent" />
+              </div>
+              <div className="p-5 text-left">
+                <span className="text-[10px] font-mono text-[#dfb744] font-bold uppercase">LOOK 03 • SUMMER RESORT</span>
+                <h4 className="font-heading text-lg font-bold text-white mt-1 uppercase">Polo Areia + Bermuda Linho Puro</h4>
+                <p className="text-xs text-neutral-300 mt-1">Frescor e sofisticação natural com linho misto de alto padrão.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 7. CONCEPT STORE STORY */}
+      <section id="concept-store" className="py-14 sm:py-20 bg-[#08080a] border-t border-white/[0.06] w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-3xl glass-card p-6 sm:p-10 lg:p-12 border border-white/[0.08]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] text-[#dfb744] font-mono text-xs font-bold border border-white/[0.08]">
+                  <MapPin className="w-3.5 h-3.5" /> MODA MASCULINA EM ITAIÇABA - CE
+                </div>
+                <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white uppercase leading-tight">
+                  Da arara física para a comanda digital.
+                </h2>
+                <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed">
+                  A <strong>Estilo Prime</strong> é referência regional em vestuário masculino. Criamos um sistema direto no WhatsApp para você pedir suas peças sem complicação, com taxa zero de entrega em Itaiçaba e atendimento personalizado.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-4">
+                  <div className="p-4 rounded-xl bg-black/40 border border-white/[0.04]">
+                    <span className="font-mono text-[#dfb744] font-bold text-sm block mb-1">01. Escolha</span>
+                    <span className="text-xs text-neutral-300">Navegue pelas fotos reais dos looks masculinos.</span>
+                  </div>
+                  <div className="p-4 rounded-xl bg-black/40 border border-white/[0.04]">
+                    <span className="font-mono text-[#dfb744] font-bold text-sm block mb-1">02. Comanda</span>
+                    <span className="text-xs text-neutral-300">Gere o pedido formatado com taxa zero.</span>
+                  </div>
+                  <div className="p-4 rounded-xl bg-black/40 border border-white/[0.04]">
+                    <span className="font-mono text-[#dfb744] font-bold text-sm block mb-1">03. Receba</span>
+                    <span className="text-xs text-neutral-300">Despacho expresso no seu endereço.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 flex flex-col items-center justify-center p-6 sm:p-8 rounded-2xl bg-neutral-950/80 border border-white/[0.08] text-center space-y-4">
+                <div className="w-16 h-16 rounded-2xl bg-neutral-900 border border-white/[0.1] flex items-center justify-center text-[#dfb744] font-heading font-black text-2xl">
+                  EP
+                </div>
+                <div>
+                  <h4 className="font-heading text-lg font-bold text-white uppercase">Estilo Prime Store</h4>
+                  <p className="text-xs text-neutral-400">Moda Masculina &amp; Streetwear • Itaiçaba - CE</p>
+                  <p className="text-xs font-mono text-[#dfb744] mt-1">@estiloprime.store</p>
+                </div>
+                <a
+                  href="https://www.instagram.com/estiloprime.store/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] text-xs font-semibold text-white flex items-center justify-center gap-2"
+                >
+                  <Instagram className="w-4 h-4 text-pink-400" />
+                  <span>Seguir no Instagram</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. FOOTER */}
+      <footer className="bg-[#08080a] border-t border-white/[0.06] py-12 px-4 sm:px-6 lg:px-8 text-neutral-400 text-xs w-full">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-white/[0.1] flex items-center justify-center text-[#dfb744] font-bold text-xs font-heading">
+              EP
+            </div>
+            <div>
+              <span className="font-heading font-bold text-sm text-white block uppercase">ESTILO PRIME DIGITAL</span>
+              <span className="text-[11px] text-neutral-500 font-mono">Exclusivamente Moda Masculina &amp; Streetwear • Itaiçaba - CE</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-6 font-medium">
+            <a href="#hero-slider" className="hover:text-[#dfb744]">Início</a>
+            <a href="#catalogo" className="hover:text-[#dfb744]">Catálogo</a>
+            <a href="#lookbook" className="hover:text-[#dfb744]">Lookbook</a>
+            <button onClick={() => setIsAdminOpen(true)} className="hover:text-[#dfb744] flex items-center gap-1 font-mono">
+              <Lock className="w-3 h-3" /> Painel Lojista
+            </button>
+          </div>
+
+          <div className="text-[11px] text-neutral-500 font-mono">
+            © 2026 Estilo Prime Store. Todos os direitos reservados.
+          </div>
+        </div>
+      </footer>
+
+      {/* QUICK VIEW MODAL */}
+      {quickViewProduct && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          <div className="relative w-full max-w-4xl rounded-3xl glass-navbar border border-white/[0.12] overflow-hidden shadow-2xl my-auto">
+            <button
+              onClick={() => setQuickViewProduct(null)}
+              className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-neutral-400 hover:text-white flex items-center justify-center border border-white/10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8">
+              <div className="md:col-span-6">
+                <div className="relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden bg-neutral-900 border border-white/10">
+                  <img
+                    src={quickViewProduct.image}
+                    alt={quickViewProduct.name}
+                    className="w-full h-full object-cover object-center filter brightness-90"
+                  />
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/80 border border-white/10 text-[10px] font-mono font-bold text-[#dfb744] uppercase">
+                    {quickViewProduct.badge}
+                  </div>
+                </div>
+              </div>
+
+              <div className="md:col-span-6 flex flex-col justify-between space-y-5 text-left">
+                <div>
+                  <span className="text-xs font-mono text-[#dfb744] font-bold uppercase tracking-wider block mb-1">
+                    {quickViewProduct.categoryName} • MENSWEAR
+                  </span>
+                  <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-white uppercase">
+                    {quickViewProduct.name}
+                  </h3>
+                  <div className="flex items-baseline gap-3 mt-2 mb-4">
+                    <span className="text-2xl sm:text-3xl font-extrabold text-[#dfb744] font-mono">
+                      R$ {quickViewProduct.price.toFixed(2).replace(".", ",")}
+                    </span>
+                    <span className="text-xs text-neutral-500 line-through font-mono">
+                      R$ {quickViewProduct.oldPrice.toFixed(2).replace(".", ",")}
+                    </span>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      EM ESTOQUE
+                    </span>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-6">
+                    {quickViewProduct.description}
+                  </p>
+
+                  <div className="space-y-2 mb-6">
+                    <span className="text-xs font-bold text-neutral-300 font-mono">Grade Masculina:</span>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {quickViewProduct.sizes.map((s) => (
+                        <button
+                          key={s}
+                          onClick={() => setQuickViewSize(s)}
+                          className={`px-3.5 py-1.5 rounded-lg border text-xs font-mono transition-all ${
+                            quickViewSize === s
+                              ? "btn-matte-gold text-black font-extrabold"
+                              : "bg-neutral-900 text-white border-white/[0.08]"
+                          }`}
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center gap-3 text-xs text-neutral-300">
+                    <Truck className="w-5 h-5 text-[#dfb744] flex-shrink-0" />
+                    <span><strong>Entrega Grátis em Itaiçaba (R$ 0,00)</strong> ou retirada no balcão.</span>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-white/[0.08]">
+                  <button
+                    onClick={() => {
+                      addToCart(quickViewProduct, quickViewSize);
+                      setQuickViewProduct(null);
+                      setIsCartOpen(true);
+                    }}
+                    className="w-full py-3.5 rounded-xl btn-matte-gold font-heading font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-black" />
+                    <span>Adicionar à Comanda ({quickViewSize})</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CARRINHO DRAWER */}
+      {isCartOpen && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex justify-end">
+          <div className="w-full max-w-md bg-[#0e0f12] border-l border-white/[0.08] shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-200">
+            
+            <div className="p-5 border-b border-white/[0.08] flex items-center justify-between bg-black/40">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-[#dfb744]">
+                  <ShoppingBag className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-base font-bold text-white uppercase">Comanda Digital</h3>
+                  <span className="text-[11px] text-neutral-400 font-mono">Moda Masculina • Estilo Prime</span>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsCartOpen(false)}
+                className="w-8 h-8 rounded-lg bg-neutral-800/60 text-neutral-400 hover:text-white flex items-center justify-center"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-5 space-y-3">
+              {cart.length === 0 ? (
+                <div className="h-64 flex flex-col items-center justify-center text-center text-neutral-400 space-y-3 font-mono">
+                  <ShoppingBag className="w-12 h-12 text-neutral-600" />
+                  <p className="text-sm font-bold text-white font-heading uppercase">Sua comanda está vazia</p>
+                  <p className="text-xs text-neutral-400">Adicione peças da coleção masculina para fechar o pedido.</p>
+                </div>
+              ) : (
+                cart.map((item, idx) => (
+                  <div
+                    key={`${item.id}-${item.size}`}
+                    className="p-3 rounded-2xl bg-neutral-950/80 border border-white/[0.06] flex items-center justify-between gap-3"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-16 h-16 rounded-xl object-cover object-center border border-white/[0.08]"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-xs font-bold text-white truncate font-heading uppercase">{item.name}</h4>
+                      <div className="text-[11px] font-mono text-[#dfb744] mt-0.5">
+                        Tam: <strong>{item.size}</strong> • R$ {item.price.toFixed(2).replace(".", ",")}
+                      </div>
+                      <div className="flex items-center gap-2 mt-2">
+                        <button
+                          onClick={() => updateCartQty(idx, -1)}
+                          className="w-6 h-6 rounded bg-neutral-800 text-neutral-300 hover:text-white flex items-center justify-center font-mono font-bold text-xs"
+                        >
+                          -
+                        </button>
+                        <span className="font-mono text-xs text-white font-bold">{item.quantity}</span>
+                        <button
+                          onClick={() => updateCartQty(idx, 1)}
+                          className="w-6 h-6 rounded bg-neutral-800 text-neutral-300 hover:text-white flex items-center justify-center font-mono font-bold text-xs"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="text-right font-mono">
+                      <span className="text-xs font-bold text-white block">
+                        R$ {(item.price * item.quantity).toFixed(2).replace(".", ",")}
+                      </span>
+                      <button
+                        onClick={() => removeCartItem(idx)}
+                        className="text-neutral-500 hover:text-red-400 text-[10px] mt-2 flex items-center gap-0.5 justify-end"
+                      >
+                        <Trash2 className="w-3 h-3" /> Remover
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {cart.length > 0 && (
+              <div className="p-5 border-t border-white/[0.08] bg-black/60 space-y-4">
+                <div className="space-y-2">
+                  <span className="text-xs font-mono font-bold text-neutral-300 block">Identificação para a Comanda:</span>
+                  <input
+                    type="text"
+                    placeholder="Seu Nome Completo *"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-900 border border-white/[0.08] text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-[#c59b27]"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="WhatsApp com DDD (Ex: 88 99876-5432) *"
+                    value={customerPhone}
+                    onChange={(e) => setCustomerPhone(e.target.value)}
+                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-900 border border-white/[0.08] text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-[#c59b27]"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <span className="text-xs font-mono font-bold text-neutral-300 block">Local de Entrega:</span>
+                  <select
+                    value={selectedDelivery}
+                    onChange={(e) => setSelectedDelivery(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-neutral-900 border border-white/[0.08] text-neutral-200 text-xs font-semibold focus:outline-none focus:border-[#c59b27]"
+                  >
+                    {DELIVERY_OPTIONS.map((opt) => (
+                      <option key={opt.id} value={opt.id}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-1 text-xs border-t border-white/[0.08] pt-3">
+                  <div className="flex justify-between text-neutral-400 font-mono">
+                    <span>Subtotal:</span>
+                    <span className="text-white">R$ {cartSubtotal.toFixed(2).replace(".", ",")}</span>
+                  </div>
+                  <div className="flex justify-between text-neutral-400 font-mono">
+                    <span>Taxa de Entrega:</span>
+                    <span className="text-emerald-400 font-bold">
+                      {currentDeliveryFee === 0 ? "GRÁTIS (R$ 0,00)" : `R$ ${currentDeliveryFee.toFixed(2).replace(".", ",")}`}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm font-bold text-white pt-1">
+                    <span className="font-heading uppercase">Total da Comanda:</span>
+                    <span className="font-mono text-[#dfb744] text-base font-bold">
+                      R$ {cartTotal.toFixed(2).replace(".", ",")}
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleGenerateComanda}
+                  className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Gerar Comanda &amp; Enviar no WhatsApp</span>
+                </button>
+              </div>
+            )}
+
+          </div>
+        </div>
+      )}
+
+      {/* MODAL DE SUCESSO */}
+      {orderModalOpen && generatedOrder && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-3xl glass-navbar border border-white/[0.12] p-6 sm:p-8 text-center shadow-2xl">
+            <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto mb-4 animate-bounce">
+              <Check className="w-7 h-7" />
+            </div>
+
+            <span className="text-xs font-mono text-emerald-400 font-bold uppercase block mb-1">
+              COMANDA REGISTRADA COM SUCESSO!
+            </span>
+            <h3 className="font-heading text-3xl font-extrabold text-white">
+              {generatedOrder.id}
+            </h3>
+
+            <p className="text-xs text-neutral-300 mt-2 mb-6">
+              Sua comanda de moda masculina foi gerada. Copie a chave Pix abaixo e envie o comprovante no WhatsApp da loja.
+            </p>
+
+            <div className="p-4 rounded-xl bg-black/80 border border-white/[0.08] text-left font-mono text-[11px] text-neutral-300 space-y-2 mb-6 whitespace-pre-line select-all">
+              {generatedOrder.text}
+            </div>
+
+            <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-left space-y-2 mb-6">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-[#dfb744] font-mono">Chave Pix (Estilo Prime):</span>
+                <span className="text-[10px] text-neutral-400 font-mono">Banco / CNPJ</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  readOnly
+                  value="88999999999"
+                  className="w-full px-3 py-1.5 rounded-lg bg-black/60 border border-white/[0.1] text-[#dfb744] text-xs font-mono select-all"
+                />
+                <button
+                  onClick={copyPixKey}
+                  className="px-3 py-1.5 rounded-lg btn-matte-gold text-black font-bold text-xs flex items-center gap-1 flex-shrink-0 font-mono"
+                >
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>{copiedPix ? "Copiado!" : "Copiar"}</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-2.5">
+              <a
+                href={generatedOrder.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
+              >
+                <Send className="w-4 h-4" />
+                <span>Abrir WhatsApp com a Comanda</span>
+              </a>
+              <button
+                onClick={() => setOrderModalOpen(false)}
+                className="w-full py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-medium font-mono"
+              >
+                Fechar e Continuar Navegando
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PAINEL LOJISTA */}
+      {isAdminOpen && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          <div className="relative w-full max-w-5xl rounded-3xl glass-navbar border border-white/[0.12] p-6 sm:p-8 shadow-2xl my-auto">
+            <div className="flex items-center justify-between border-b border-white/[0.08] pb-5 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.1] flex items-center justify-center text-[#dfb744] font-bold">
+                  <Shield className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-white uppercase">Painel do Lojista — Estilo Prime</h3>
+                  <span className="text-xs font-mono text-neutral-400">Controle de Estoque &amp; Catálogo Masculino</span>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsAdminOpen(false)}
+                className="w-8 h-8 rounded-lg bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+              <div className="p-4 rounded-2xl bg-black/40 border border-white/[0.06]">
+                <span className="text-[10px] text-neutral-400 uppercase font-mono block">Faturamento Hoje</span>
+                <span className="text-xl font-bold text-[#dfb744] font-mono">R$ 1.489,20</span>
+              </div>
+              <div className="p-4 rounded-2xl bg-black/40 border border-white/[0.06]">
+                <span className="text-[10px] text-neutral-400 uppercase font-mono block">Comandas WhatsApp</span>
+                <span className="text-xl font-bold text-white font-mono">18 pedidos</span>
+              </div>
+              <div className="p-4 rounded-2xl bg-black/40 border border-white/[0.06]">
+                <span className="text-[10px] text-neutral-400 uppercase font-mono block">Conversão</span>
+                <span className="text-xl font-bold text-emerald-400 font-mono">42.5%</span>
+              </div>
+              <div className="p-4 rounded-2xl bg-black/40 border border-white/[0.06]">
+                <span className="text-[10px] text-neutral-400 uppercase font-mono block">Frete Itaiçaba</span>
+                <span className="text-xl font-bold text-neutral-200 font-mono">R$ 0,00</span>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="overflow-x-auto rounded-xl border border-white/[0.08]">
+                <table className="w-full text-left text-xs text-neutral-300">
+                  <thead className="bg-neutral-900/80 text-neutral-400 uppercase font-mono text-[10px] border-b border-white/[0.08]">
+                    <tr>
+                      <th className="p-3">Peça Masculina</th>
+                      <th className="p-3">Categoria</th>
+                      <th className="p-3">Preço</th>
+                      <th className="p-3 text-center">Grade P</th>
+                      <th className="p-3 text-center">Grade M</th>
+                      <th className="p-3 text-center">Grade G</th>
+                      <th className="p-3 text-center">Grade GG</th>
+                      <th className="p-3 text-right">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/[0.04] bg-black/40 font-mono">
+                    {products.map((prod) => (
+                      <tr key={prod.id}>
+                        <td className="p-3 font-semibold text-white flex items-center gap-2">
+                          <img src={prod.image} alt={prod.name} className="w-8 h-8 rounded object-cover object-center" />
+                          <span className="truncate max-w-[180px] font-heading uppercase">{prod.name}</span>
+                        </td>
+                        <td className="p-3 text-neutral-400">{prod.categoryName}</td>
+                        <td className="p-3 font-mono text-[#dfb744] font-bold">R$ {prod.price.toFixed(2).replace(".", ",")}</td>
+                        <td className="p-3 text-center">{prod.stock.P || 0}</td>
+                        <td className="p-3 text-center">{prod.stock.M || 0}</td>
+                        <td className="p-3 text-center">{prod.stock.G || 0}</td>
+                        <td className="p-3 text-center">{prod.stock.GG || 0}</td>
+                        <td className="p-3 text-right">
+                          <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">
+                            Ativo
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-neutral-950 border border-white/[0.08] space-y-4">
+                <h4 className="text-xs font-bold text-[#dfb744] uppercase tracking-wider flex items-center gap-1.5 font-heading">
+                  <PlusCircle className="w-4 h-4" /> Cadastrar Nova Peça Masculina no Balcão
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                  <input
+                    type="text"
+                    placeholder="Nome da Peça (Ex: Polo Tech Off-White)"
+                    value={newProdName}
+                    onChange={(e) => setNewProdName(e.target.value)}
+                    className="px-3 py-2 rounded-xl bg-black border border-white/[0.08] text-white text-xs"
+                  />
+                  <select
+                    value={newProdCat}
+                    onChange={(e) => setNewProdCat(e.target.value)}
+                    className="px-3 py-2 rounded-xl bg-black border border-white/[0.08] text-white text-xs"
+                  >
+                    <option value="polos">Polos Tech</option>
+                    <option value="oversized">Oversized Streetwear</option>
+                    <option value="basicas">Básicas &amp; Slim</option>
+                    <option value="bermudas">Bermudas Masculinas</option>
+                    <option value="acessorios">Acessórios</option>
+                  </select>
+                  <input
+                    type="number"
+                    step="0.10"
+                    placeholder="Preço (Ex: 89.90)"
+                    value={newProdPrice}
+                    onChange={(e) => setNewProdPrice(e.target.value)}
+                    className="px-3 py-2 rounded-xl bg-black border border-white/[0.08] text-white text-xs"
+                  />
+                  <button
+                    onClick={handleAdminAddProduct}
+                    className="py-2 rounded-xl btn-matte-gold text-black font-bold text-xs font-heading uppercase"
+                  >
+                    Publicar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+}

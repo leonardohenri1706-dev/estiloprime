@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ESTILO PRIME — Abrindo…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root{--ink:#0B0908;--coal:#151210;--line:#2E2720;--gold:#C59B27;--goldl:#DFB744;--bone:#EFE7D8;--ash:#8B8175}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:
+    radial-gradient(800px 400px at 80% -10%,rgba(197,155,39,.10),transparent 60%),
+    radial-gradient(600px 300px at -5% 110%,rgba(197,155,39,.07),transparent 55%),var(--ink);
+    color:var(--bone);font-family:'Space Mono',monospace;padding:24px;text-align:center}
+  .mark{width:64px;height:64px;border:1px solid rgba(197,155,39,.5);background:#1E1915;display:inline-flex;align-items:center;justify-content:center;
+    font-family:'Anton';color:var(--goldl);font-size:22px;letter-spacing:.05em;margin-bottom:20px}
+  h1{font-family:'Anton';font-size:clamp(1.6rem,4vw,2.6rem);letter-spacing:.02em;text-transform:uppercase;line-height:.95}
+  p.sub{color:var(--ash);font-size:11px;letter-spacing:.25em;text-transform:uppercase;margin-top:10px}
+  .bar{width:220px;height:2px;background:#2E2720;margin:26px auto;overflow:hidden;border-radius:99px}
+  .bar i{display:block;height:100%;width:40%;background:linear-gradient(90deg,var(--gold),var(--goldl));animation:slide 1s ease infinite}
+  @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+  .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  a.btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border:1px solid var(--line);
+    color:var(--bone);text-decoration:none;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;transition:.18s}
+  a.btn:hover{border-color:var(--gold);color:var(--goldl)}
+  a.btn.gold{background:linear-gradient(180deg,var(--goldl),var(--gold));color:#141210;border-color:#7A5E14}
+  a.btn.gold:hover{filter:brightness(1.06)}
+  small{display:block;margin-top:26px;color:#5A534B;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+</style>
+</head>
+<body>
+  <main>
+    <div class="mark">EP</div>
+    <h1>Estilo Prime</h1>
+    <p class="sub">Menswear · Itaiçaba — CE</p>
+    <div class="bar"><i></i></div>
+    <div class="row">
+      <a class="btn gold" id="go-store" href="./public/site.html">Abrir a loja</a>
+      <a class="btn" href="http://localhost:3000/admin/dashboard">Painel Admin</a>
+      <a class="btn" href="http://localhost:3000/">Next :3000</a>
+    </div>
+    <small id="hint">Redirecionando automaticamente…</small>
+  </main>
+<script>
+(function(){
+  var port=location.port;
+  var target;
+  if(port==="3000"){target="/site.html";}
+  else if(port==="5500"||port==="5501"){target="./public/site.html";}
+  else{target="http://localhost:3000/";}
+  document.getElementById("go-store").setAttribute("href",target);
+  var t=setTimeout(function(){location.replace(target);},900);
+  // se o usuário clicar em qualquer botão, cancela o redirect
+  document.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>clearTimeout(t)));
+})();
+</script>
+</body>
+</html>

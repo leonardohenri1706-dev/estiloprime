@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ESTILO PRIME — Menswear Editorial · Itaiçaba, CE</title>
+  <meta name="description" content="Estilo Prime Store (@estiloprime.store): polos tech, oversized boxy 240g/m², camisas de time, bonés e bermudas de linho. Itaiçaba-CE." />
+  <link id="favicon" rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2317140F'/%3E%3Ctext x='32' y='42' font-family='Arial Black' font-size='26' font-weight='900' text-anchor='middle' fill='%23F6F2EA'%3EEP%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Archivo:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <script>window.tailwind = {config:{
+    theme:{extend:{colors:{
+      paper:'#F6F2EA',card:'#FFFFFF',edge:'#E4DCCF',edge2:'#D8CEBD',
+      ink:'#17140F',ink2:'#2A251E',
+      gold:'#9C7500',goldl:'#B98A0A',goldd:'#7A5E14',
+      mut:'#6E6659',faint:'#9C9284'
+    },fontFamily:{
+      display:['Anton','Impact','sans-serif'],
+      serif:['Fraunces','Georgia','serif'],
+      sans:['Archivo','system-ui','sans-serif'],
+      mono:['"Space Mono"','monospace']
+    },boxShadow:{
+      card:'0 1px 2px rgba(23,20,15,.05),0 8px 24px -16px rgba(23,20,15,.18)',
+      lift:'0 2px 4px rgba(23,20,15,.06),0 18px 40px -22px rgba(23,20,15,.28)'
+    }}}}
+  };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root{
+      --paper:#F6F2EA;--card:#FFFFFF;--edge:#E4DCCF;--edge2:#D8CEBD;
+      --ink:#17140F;--gold:#9C7500;--goldl:#B98A0A;
+      --mut:#6E6659;--faint:#9C9284;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px}
+    body{background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:rgba(156,117,0,.25);color:var(--ink)}
+
+    .grainy{position:relative}
+    .grainy::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");background-size:180px 180px;mix-blend-mode:multiply;opacity:.07;z-index:2}
+
+    .display-xl{font-family:'Anton';font-size:clamp(3rem,8vw,7rem);line-height:.92;text-transform:uppercase;color:var(--ink);letter-spacing:.005em}
+    .display-lg{font-family:'Anton';font-size:clamp(2.2rem,4.6vw,4.2rem);line-height:.94;text-transform:uppercase;color:var(--ink)}
+    .display-md{font-family:'Anton';font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.02;text-transform:uppercase;color:var(--ink)}
+    .display-sm{font-family:'Anton';font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.05;text-transform:uppercase;color:var(--ink)}
+    .acc{color:var(--gold)}
+    .fade-ink{color:#B8AE9E;-webkit-text-stroke:0}
+
+    .mono-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;color:var(--mut)}
+
+    .btn-ink{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);font-weight:800;font-size:13px;letter-spacing:.07em;text-transform:uppercase;padding:17px 30px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+    .btn-ink:hover{background:#000;transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(23,20,15,.45)}
+    .btn-ink:active{transform:translateY(0) scale(.99)}
+    .btn-line{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:transparent;border:1px solid var(--edge2);color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.07em;text-transform:uppercase;padding:15px 27px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:border-color .18s,color .18s,background .18s}
+    .btn-line:hover{border-color:var(--ink);background:#fff}
+    .btn-wa{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#128C4B;color:#fff;border:1px solid #0C6B39;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:15px 26px;border-radius:999px;cursor:pointer;transition:transform .18s,box-shadow .18s}
+    .btn-wa:hover{transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(18,140,75,.55)}
+
+    .frame{position:relative}
+    .tick{position:absolute;width:14px;height:14px;z-index:3;pointer-events:none;border-color:rgba(23,20,15,.55)!important}
+    .tick-tl{top:-1px;left:-1px;border-top:1px solid;border-left:1px solid}
+    .tick-tr{top:-1px;right:-1px;border-top:1px solid;border-right:1px solid}
+    .tick-bl{bottom:-1px;left:-1px;border-bottom:1px solid;border-left:1px solid}
+    .tick-br{bottom:-1px;right:-1px;border-bottom:1px solid;border-right:1px solid}
+
+    .card-hover{transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color .3s ease}
+    .card-hover:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(23,20,15,.05),0 22px 44px -24px rgba(23,20,15,.32);border-color:var(--edge2)}
+    .card-hover.is-tilting{transition:transform .06s linear}
+
+    .marquee{overflow:hidden}
+    .marquee-track{display:flex;width:max-content;animation:marq 34s linear infinite;will-change:transform;backface-visibility:hidden}
+    @keyframes marq{to{transform:translateX(-50%)}}
+    .sep{flex-shrink:0;width:7px;height:7px;margin:0 30px;background:var(--gold);transform:rotate(45deg)}
+
+    .rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
+    .rv.in{opacity:1;transform:none}
+
+    .crs-vp{overflow:hidden;touch-action:pan-y}
+    .crs-track{display:flex;gap:22px;will-change:transform;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+    .crs-card{flex:0 0 calc((100% - 44px)/3)}
+    @media(max-width:1023px){.crs-card{flex-basis:calc((100% - 22px)/2)}}
+    @media(max-width:639px){.crs-card{flex-basis:100%}}
+    .crs-btn{width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid var(--edge2);color:var(--ink);background:#fff;cursor:pointer;border-radius:999px;transition:all .18s;box-shadow:0 1px 2px rgba(23,20,15,.05)}
+    .crs-btn:hover:not([disabled]){border-color:var(--ink);background:var(--ink);color:var(--paper)}
+    .crs-btn[disabled]{opacity:.35;pointer-events:none}
+    .crs-dots{display:flex;gap:7px}
+    .crs-dot{width:24px;height:3px;background:var(--edge2);cursor:pointer;border-radius:99px;transition:background .2s}
+    .crs-dot.on{background:var(--ink)}
+
+    .chip{display:inline-flex;align-items:center;gap:9px;padding:13px 21px;border:1px solid var(--edge2);background:#fff;cursor:pointer;font-family:'Space Mono';font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);white-space:nowrap;border-radius:999px;transition:all .18s}
+    .chip:hover{border-color:var(--ink);color:var(--ink)}
+    .chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:700}
+
+    /* HERO claro */
+    .slide-item{opacity:0;visibility:hidden;position:absolute;inset:0;will-change:transform,opacity;transition:opacity .9s ease}
+    .slide-item.active{opacity:1;visibility:visible}
+    .slide-item img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.95) contrast(1.02);transform-origin:center center;will-change:transform}
+    #hero-text-block{will-change:transform,opacity}
+    .hero-line{overflow:hidden;display:block}
+    .hero-line-inner{display:block;transform:translateY(112%);opacity:0;transition:transform .85s cubic-bezier(.16,1,.3,1),opacity .85s ease}
+    .hero-line-inner.revealed{transform:translateY(0);opacity:1}
+    .hero-fade{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+    .hero-fade.revealed{opacity:1;transform:translateY(0)}
+    .hero-title{font-family:'Anton';font-size:clamp(3.1rem,8.6vw,7.6rem);line-height:.92;text-transform:uppercase;color:var(--ink);letter-spacing:.002em}
+    .tx-serif{font-family:'Fraunces',Georgia,serif !important;font-style:italic;font-weight:520;text-transform:none;letter-spacing:0}
+    .txt-mut{color:#B9AE9C}
+
+    .nav-link{position:relative;font-size:12px}
+    .nav-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--ink);transition:width .25s ease}
+    .nav-link:hover::after{width:100%}
+
+    .inp{background:#fff;border:1px solid var(--edge2);color:var(--ink);border-radius:999px;font-size:14px;padding:13px 18px;width:100%;outline:none;transition:border-color .18s,box-shadow .18s;font-family:'Archivo'}
+    .inp:focus{border-color:var(--ink);box-shadow:0 0 0 3px rgba(23,20,15,.08)}
+    .inp::placeholder{color:var(--faint)}
+
+    #scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:80;background:linear-gradient(90deg,var(--gold),#17140F)}
+    [data-plx]{will-change:transform}
+
+    .scroll-cue span.bar{display:block;width:1px;height:46px;background:linear-gradient(to bottom,var(--ink),transparent);animation:cue 1.6s ease-in-out infinite}
+    @keyframes cue{0%,100%{opacity:.25;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+    ::-webkit-scrollbar{width:10px;height:10px}
+    ::-webkit-scrollbar-track{background:var(--paper)}
+    ::-webkit-scrollbar-thumb{background:var(--edge2);border-radius:99px;border:3px solid var(--paper)}
+    ::-webkit-scrollbar-thumb:hover{background:var(--faint)}
+    a,button{transition:all .18s ease}
+    :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+    .ig-skel{aspect-ratio:1;background:linear-gradient(100deg,#EFEBE2 40%,#E2DCD0 50%,#EFEBE2 60%);background-size:200% 100%;animation:shimmer 1.3s infinite;border-radius:14px}
+    @keyframes shimmer{to{background-position:-200% 0}}
+
+    @media(prefers-reduced-motion:reduce){
+      .marquee-track{animation:none}
+      .rv{opacity:1;transform:none;transition:none}
+      .hero-line-inner{transform:none;opacity:1}
+      .hero-fade{opacity:1;transform:none}
+      .scroll-cue .bar{animation:none;opacity:.4}
+      .ig-skel{animation:none}
+    }
+  </style>
+</head>
+<body>
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- TICKER -->
+<div class="bg-ink text-paper marquee py-2.5" aria-hidden="true">
+  <div class="marquee-track items-center">
+    <div class="flex items-center shrink-0">
+      <span class="mono-tag !text-paper/80 whitespace-nowrap">ENTREGA GRÁTIS EM ITAIÇABA — CE</span><span class="sep"></span>
+      <span class="mono-tag !text-goldl whitespace-nowrap">COMANDA DIRETA NO WHATSAPP</span><span class="sep sep-soft"></span>
+      <span class="mono-tag !text-paper/80 whitespace-nowrap">@ESTILOPRIME.STORE</span><span class="sep"></span>
+      <span class="mono-tag !text-paper/50 whitespace-nowrap">SUMMER 2026 · DROP 02</span><span class="sep sep-soft"></span>
+    </div>
+    <div class="flex items-center shrink-0">
+      <span class="mono-tag !text-paper/80 whitespace-nowrap">ENTREGA GRÁTIS EM ITAIÇABA — CE</span><span class="sep"></span>
+      <span class="mono-tag !text-goldl whitespace-nowrap">COMANDA DIRETA NO WHATSAPP</span><span class="sep sep-soft"></span>
+      <span class="mono-tag !text-paper/80 whitespace-nowrap">@ESTILOPRIME.STORE</span><span class="sep"></span>
+      <span class="mono-tag !text-paper/50 whitespace-nowrap">SUMMER 2026 · DROP 02</span><span class="sep sep-soft"></span>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<header class="sticky top-0 z-50 w-full bg-paper/90 backdrop-blur-md border-b border-edge">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 h-[76px] flex items-center justify-between gap-3">
+    <a href="#" class="flex items-center gap-3 group shrink-0">
+      <img id="brand-avatar" alt="Estilo Prime"
+           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2317140F'/%3E%3Ctext x='32' y='42' font-family='Arial Black' font-size='24' font-weight='900' text-anchor='middle' fill='%23F6F2EA'%3EEP%3C/text%3E%3C/svg%3E"
+           class="w-11 h-11 rounded-full object-cover ring-1 ring-ink/15 group-hover:ring-ink/40 transition-all"/>
+      <div class="leading-none min-[400px]:block hidden">
+        <p class="font-display text-ink text-lg tracking-wide">ESTILO PRIME</p>
+        <p id="brand-sub" class="mono-tag mt-1" style="font-size:9px">@estiloprime.store · ITAIÇABA</p>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-8 font-semibold uppercase tracking-[0.16em] text-ink/70">
+      <a href="#colecoes" class="nav-link hover:text-ink">Coleções</a>
+      <a href="#catalogo" class="nav-link hover:text-ink">Catálogo</a>
+      <a href="#lookbook" class="nav-link hover:text-ink">Lookbook</a>
+      <a href="#instagram" class="nav-link hover:text-ink">Instagram</a>
+      <a href="#mapa" class="nav-link hover:text-ink">Onde estamos</a>
+    </nav>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <a href="/admin/dashboard" title="Painel do Lojista"
+         class="hidden sm:inline-flex items-center gap-1.5 mono-tag border border-edge2 px-3.5 py-2.5 text-mut hover:text-ink hover:border-ink rounded-full">
+        <i data-lucide="shield" class="w-4 h-4"></i> Admin
+      </a>
+      <button onclick="openCartDrawer()" class="btn-ink !py-3 relative">
+        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">Comanda</span>
+        <span id="cart-counter" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-gold text-white text-[11px] font-mono flex items-center justify-center border-2 border-paper">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero-slider" class="relative min-h-[88vh] lg:min-h-[94vh] flex items-center overflow-hidden bg-card">
+  <div id="slides-wrapper" class="absolute inset-0">
+    <div class="slide-item active" id="slide-0"><img id="slide-img-0" src="https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?auto=format&fit=crop&w=2400&q=90" alt="Camiseta Oversized Boxy branca"/></div>
+    <div class="slide-item" id="slide-1"><img id="slide-img-1" src="https://images.unsplash.com/photo-1759308553457-6f7f0850d9cd?auto=format&fit=crop&w=2400&q=90" alt="Jersey retrô número 10"/></div>
+    <div class="slide-item" id="slide-2"><img id="slide-img-2" src="https://images.unsplash.com/photo-1562247879-0eac107b7e76?auto=format&fit=crop&w=2400&q=90" alt="Bermuda de linho alfaiataria"/></div>
+    <div class="slide-item" id="slide-3"><img id="slide-img-3" src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=2400&q=90" alt="Polo Tech Black Zíper"/></div>
+    <div class="absolute inset-0" style="background:linear-gradient(90deg,var(--paper) 0%,rgba(246,242,234,.94) 34%,rgba(246,242,234,.25) 62%,rgba(246,242,234,.35) 100%)"></div>
+    <div class="absolute inset-x-0 bottom-0 h-40" style="background:linear-gradient(to top,var(--paper),transparent)"></div>
+  </div>
+
+  <p class="hidden xl:block absolute left-7 top-1/2 -translate-y-1/2 -rotate-90 origin-left mono-tag tracking-[0.4em]">ITAIÇABA — CEARÁ — BRASIL</p>
+  <div id="slide-ghost-num" data-plx="0.06" class="hidden lg:block absolute right-10 bottom-24 font-display text-[230px] leading-none select-none pointer-events-none fade-ink opacity-60">01</div>
+
+  <div class="relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-20">
+    <div id="hero-text-block" class="max-w-3xl space-y-7">
+      <div class="hero-fade inline-flex items-center gap-2.5 bg-white/85 backdrop-blur border border-edge2 px-4 py-2 rounded-full shadow-sm">
+        <span class="w-2 h-2 bg-gold animate-pulse"></span>
+        <span id="slide-badge-text" class="mono-tag !text-ink/80">[ STREETWEAR ESSENTIALS // 240G/M² ]</span>
+      </div>
+
+      <h1 id="slide-title" class="hero-title">
+        <span class="hero-line"><span class="hero-line-inner">CAMISETAS OVERSIZED</span></span>
+        <span class="hero-line"><span class="hero-line-inner tx-serif acc" style="transition-delay:.08s">Boxy Cut</span></span>
+        <span class="hero-line"><span class="hero-line-inner txt-mut" style="transition-delay:.16s">OMBRO CAÍDO.</span></span>
+      </h1>
+
+      <div id="hero-piece" class="hero-fade inline-flex items-center gap-4 bg-white/90 backdrop-blur border border-edge px-5 py-3.5 rounded-xl shadow-card" style="transition-delay:.1s">
+        <span class="w-1 h-9 bg-ink rounded-full shrink-0"></span>
+        <div class="text-left leading-tight">
+          <p class="mono-tag mb-0.5" style="font-size:9px">PEÇA DO SLIDE</p>
+          <p id="hero-piece-text" class="text-sm font-bold text-ink">Boxy White Tee — R$ 79,90</p>
+        </div>
+      </div>
+
+      <p id="slide-desc" class="hero-fade max-w-lg text-base sm:text-lg leading-relaxed text-ink/75" style="transition-delay:.14s">
+        Algodão penteado pesado com caimento reto e imponente. A silhueta que define o streetwear atual.
+      </p>
+
+      <div class="hero-fade flex flex-wrap items-center gap-3.5" style="transition-delay:.2s">
+        <a href="#catalogo" class="btn-ink !py-4 !px-9 w-full sm:w-auto">
+          <span id="slide-cta-text">Ver Oversized</span>
+          <i data-lucide="arrow-down-right" class="w-5 h-5"></i>
+        </a>
+        <a href="#lookbook" class="btn-line !py-4 w-full sm:w-auto">
+          <i data-lucide="camera" class="w-5 h-5"></i> Lookbook
+        </a>
+      </div>
+
+      <div class="hero-fade flex flex-wrap items-center gap-x-7 gap-y-2 pt-2 mono-tag" style="transition-delay:.26s">
+        <span class="flex items-center gap-2"><i data-lucide="truck" class="w-4 h-4 text-gold"></i> Frete grátis Itaiçaba</span>
+        <span class="flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-gold"></i> Algodão 240g/m²</span>
+        <span class="flex items-center gap-2"><i data-lucide="repeat" class="w-4 h-4 text-gold"></i> Troca fácil 7 dias</span>
+      </div>
+
+      <div class="hero-fade flex items-center gap-4 pt-2 mono-tag" style="transition-delay:.32s">
+        <span id="slide-current-num" class="text-ink font-bold">01</span>
+        <div class="w-40 h-[3px] bg-edge overflow-hidden rounded-full"><div id="slide-progress-bar" class="absolute inset-y-0 left-0 bg-ink transition-all duration-300 rounded-full" style="width:25%;height:100%"></div></div>
+        <span>04</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 right-4 sm:right-8 z-30 flex gap-2">
+    <button onclick="prevSlide()" class="crs-btn" aria-label="Slide anterior"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+    <button onclick="nextSlide()" class="crs-btn !bg-ink !text-paper !border-ink hover:!bg-black" aria-label="Próximo slide"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+  </div>
+
+  <div class="scroll-cue absolute left-1/2 -translate-x-1/2 bottom-6 z-20 flex flex-col items-center gap-2 pointer-events-none" aria-hidden="true">
+    <span class="mono-tag text-faint" style="font-size:9px">SCROLL</span>
+    <span class="bar"></span>
+  </div>
+</section>
+
+<!-- MARQUEE EDITORIAL (faixa ink) -->
+<div class="bg-ink text-paper marquee py-5" aria-hidden="true">
+  <div class="marquee-track items-center" style="animation-duration:40s">
+    <div class="flex items-center shrink-0">
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2">Coleção 2026</span><span class="sep"></span>
+      <span class="font-serif italic text-goldl text-2xl md:text-3xl whitespace-nowrap mx-2">caimento &amp;</span><span class="sep"></span>
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2" style="color:var(--goldl)">presença</span><span class="sep"></span>
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2 text-paper/40">Menswear</span><span class="sep"></span>
+      <span class="font-serif italic text-goldl text-2xl md:text-3xl whitespace-nowrap mx-2">feito no Ceará</span><span class="sep"></span>
+    </div>
+    <div class="flex items-center shrink-0">
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2">Coleção 2026</span><span class="sep"></span>
+      <span class="font-serif italic text-goldl text-2xl md:text-3xl whitespace-nowrap mx-2">caimento &amp;</span><span class="sep"></span>
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2" style="color:var(--goldl)">presença</span><span class="sep"></span>
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2 text-paper/40">Menswear</span><span class="sep"></span>
+      <span class="font-serif italic text-goldl text-2xl md:text-3xl whitespace-nowrap mx-2">feito no Ceará</span><span class="sep"></span>
+    </div>
+  </div>
+</div>
+
+<!-- EXPLORADOR DE CATEGORIAS -->
+<section id="colecoes" class="relative py-14 sm:py-24 lg:py-28 w-full overflow-hidden border-b border-edge">
+  <div class="relative max-w-[1440px] mx-auto px-4 sm:px-8">
+
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 rv">
+      <div>
+        <p class="mono-tag text-gold mb-4">( 01 ) — ESCOLHA SEU TERRENO</p>
+        <h2 class="display-xl">ENTRE NA <span class="acc">CATEGORIA.</span></h2>
+        <p class="mt-5 max-w-md text-base sm:text-lg leading-relaxed text-mut">
+          Toque numa categoria e entre direto nas peças dela — esporte, streetwear, alfaiataria de verão ou topo de grele.
+        </p>
+      </div>
+      <a href="#catalogo" onclick="openCategoryInCatalog(currentCat)" class="btn-line self-start lg:self-end shrink-0">
+        Ver tudo no catálogo <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+
+    <div id="cat-chips" class="flex gap-2.5 overflow-x-auto pb-3 mb-9 rv fade-x" style="--d:.08s;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)"></div>
+
+    <div class="rv" style="--d:.14s">
+      <div id="showcase-hero" class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-5 sm:mb-6"></div>
+      <div id="showcase-grid" class="grid grid-cols-2 gap-3 sm:gap-6"></div>
+    </div>
+
+    <div class="flex items-center justify-between mt-9 gap-4">
+      <div id="showcase-dots" class="crs-dots"></div>
+      <div class="flex gap-2">
+        <button class="crs-btn" onclick="showcaseNav(-1)" aria-label="Anteriores"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+        <button class="crs-btn" onclick="showcaseNav(1)" aria-label="Próximos"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section id="catalogo" class="relative py-14 sm:py-24 lg:py-28 w-full overflow-hidden border-b border-edge bg-white/40">
+  <div class="relative max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 rv">
+      <div>
+        <p class="mono-tag text-gold mb-4">( 02 ) — ARARA COMPLETA</p>
+        <h2 class="display-xl">CATÁLOGO<span class="acc">.</span></h2>
+        <p class="mt-5 max-w-md text-base sm:text-lg leading-relaxed text-mut">Toque na peça para ver caimento, grade e fechar a comanda no WhatsApp.</p>
+      </div>
+      <div class="relative w-full md:w-96">
+        <i data-lucide="search" class="w-5 h-5 text-faint absolute left-5 top-1/2 -translate-y-1/2"></i>
+        <input id="search-input" type="text" placeholder="Buscar polo, jersey, linho…" oninput="handleSearch(this.value)" class="inp !pl-12"/>
+      </div>
+    </div>
+
+    <div id="catalog-filters" class="flex items-center gap-2.5 overflow-x-auto pb-4 mb-6 rv fade-x" style="--d:.06s;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)"></div>
+
+    <div class="flex items-center gap-2 mb-10 flex-wrap mono-tag rv" style="--d:.1s">
+      <span class="flex items-center gap-2 mr-1"><i data-lucide="filter" class="w-4 h-4 text-gold"></i> Grade:</span>
+      <button onclick="filterSize('all',event)" class="size-filter-btn active px-4 py-2.5 border border-ink bg-ink text-paper rounded-full">Todos</button>
+      <button onclick="filterSize('P',event)" class="size-filter-btn px-4 py-2.5 border border-edge2 text-mut hover:border-ink hover:text-ink rounded-full bg-white">P</button>
+      <button onclick="filterSize('M',event)" class="size-filter-btn px-4 py-2.5 border border-edge2 text-mut hover:border-ink hover:text-ink rounded-full bg-white">M</button>
+      <button onclick="filterSize('G',event)" class="size-filter-btn px-4 py-2.5 border border-edge2 text-mut hover:border-ink hover:text-ink rounded-full bg-white">G</button>
+      <button onclick="filterSize('GG',event)" class="size-filter-btn px-4 py-2.5 border border-edge2 text-mut hover:border-ink hover:text-ink rounded-full bg-white">GG</button>
+      <button onclick="filterSize('38',event)" class="size-filter-btn px-4 py-2.5 border border-edge2 text-mut hover:border-ink hover:text-ink rounded-full bg-white">38</button>
+      <button onclick="filterSize('40',event)" class="size-filter-btn px-4 py-2.5 border border-edge2 text-mut hover:border-ink hover:text-ink rounded-full bg-white">40</button>
+      <button onclick="filterSize('42',event)" class="size-filter-btn px-4 py-2.5 border border-edge2 text-mut hover:border-ink hover:text-ink rounded-full bg-white">42</button>
+    </div>
+
+    <div id="products-grid" class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 sm:gap-6 rv" style="--d:.12s"></div>
+  </div>
+</section>
+
+<!-- LOOKBOOK -->
+<section id="lookbook" class="relative py-14 sm:py-24 lg:py-28 w-full border-y border-edge bg-white/40 overflow-hidden">
+  <div class="relative max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 rv">
+      <div>
+        <p class="mono-tag text-gold mb-4">( 03 ) — ESTÉTICA &amp; CAIMENTO</p>
+        <h2 class="display-xl">LOOKS QUE <span class="font-serif italic normal-case acc text-[0.72em]">vestimos</span></h2>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button class="crs-btn" data-crs-prev="lk" aria-label="Anterior"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+        <button class="crs-btn" data-crs-next="lk" aria-label="Próximo"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+      </div>
+    </div>
+
+    <div class="rv" id="crs-lk" style="--d:.1s">
+      <div class="crs-vp"><div class="crs-track" id="lk-track"></div></div>
+      <div class="flex items-center justify-between mt-7">
+        <div class="crs-dots" id="lk-dots"></div>
+        <p class="mono-tag text-faint hidden sm:block">ARRASTE OU USE AS SETAS ← →</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM REAL -->
+<section id="instagram" class="relative py-14 sm:py-24 lg:py-28 w-full border-b border-edge">
+  <div class="relative max-w-[1440px] mx-auto px-4 sm:px-8">
+
+    <div class="flex flex-col md:flex-row md:items-center gap-6 rounded-2xl border border-edge bg-white p-5 sm:p-8 mb-8 shadow-card rv">
+      <img id="ig-avatar" alt="Perfil Estilo Prime"
+           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2317140F'/%3E%3Ctext x='32' y='42' font-family='Arial Black' font-size='24' font-weight='900' text-anchor='middle' fill='%23F6F2EA'%3EEP%3C/text%3E%3C/svg%3E"
+           class="w-20 h-20 rounded-full object-cover ring-2 ring-offset-2 ring-gold shrink-0"/>
+      <div class="min-w-0 flex-1">
+        <h2 class="display-md !text-2xl sm:!text-3xl">estiloprime.store</h2>
+        <p id="ig-meta" class="mt-1.5 text-sm sm:text-base text-mut">Moda Masculina &amp; Streetwear · Itaiçaba — CE</p>
+      </div>
+      <a href="https://www.instagram.com/estiloprime.store/" target="_blank" rel="noopener" class="btn-ink shrink-0">
+        <i data-lucide="instagram" class="w-5 h-5"></i> Seguir
+      </a>
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7 rv" style="--d:.06s">
+      <p class="mono-tag text-gold">( 04 ) — FEED AO VIVO</p>
+      <p id="ig-status" class="mono-tag text-faint">CARREGANDO FEED…</p>
+    </div>
+
+    <div id="ig-feed" class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 rv" style="--d:.1s">
+      <div class="ig-skel"></div><div class="ig-skel"></div><div class="ig-skel"></div>
+      <div class="ig-skel"></div><div class="ig-skel"></div><div class="ig-skel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<section id="mapa" class="relative bg-white/40 border-t border-edge w-full">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-14 sm:py-24">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-9 rv">
+      <div>
+        <p class="mono-tag text-gold mb-4">( 05 ) — ONDE ESTAMOS</p>
+        <h2 class="display-lg">PASSA NO <span class="acc">BALCÃO.</span></h2>
+      </div>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Itai%C3%A7aba,+CE" target="_blank" rel="noopener" class="btn-ink shrink-0">
+        <i data-lucide="navigation" class="w-5 h-5"></i> Traçar rota
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 rv" style="--d:.1s">
+      <div class="lg:col-span-8 frame min-h-[320px]">
+        <iframe title="Mapa — Estilo Prime Store, Itaiçaba CE" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+          class="w-full h-[340px] lg:h-full block border-0 rounded-2xl shadow-card"
+          style="filter:grayscale(1) contrast(.98)"
+          src="https://www.google.com/maps?q=Itai%C3%A7aba,+CE,+Brasil&z=14&output=embed"></iframe>
+      </div>
+      <div class="lg:col-span-4 bg-white border border-edge rounded-2xl shadow-card p-6 sm:p-8 space-y-6">
+        <div>
+          <p class="mono-tag text-gold mb-2">ENDEREÇO</p>
+          <p class="text-base text-ink font-semibold">Centro — Itaiçaba, Ceará</p>
+          <p class="text-sm text-mut mt-1">Rua principal, ao lado da praça · CEP 62830-000</p>
+        </div>
+        <div>
+          <p class="mono-tag text-gold mb-2">HORÁRIO DO BALCÃO</p>
+          <p class="text-sm text-ink tabular-nums font-medium">SEG — SEX · 08h às 18h</p>
+          <p class="text-sm text-ink tabular-nums font-medium">SÁB · 08h às 12h</p>
+        </div>
+        <div>
+          <p class="mono-tag text-gold mb-2">RETIRADA &amp; PROVA</p>
+          <p class="text-sm text-mut leading-relaxed">Peça pela comanda digital e retire no balcão para provar antes de levar. Troca fácil em até 7 dias.</p>
+        </div>
+        <a href="https://wa.me/5588999999999?text=Quero%20retirar%20no%20balc%C3%A3o!" target="_blank" rel="noopener" class="btn-wa w-full !justify-center">
+          <i data-lucide="message-circle" class="w-5 h-5"></i> Combinar retirada
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (ink) -->
+<footer class="bg-ink text-paper pt-16 pb-8 w-full overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-14 border-b border-white/10">
+      <div>
+        <div class="flex items-center gap-3">
+          <img id="footer-avatar" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%232A251E'/%3E%3Ctext x='24' y='31' font-family='Arial Black' font-size='18' font-weight='900' text-anchor='middle' fill='%23F6F2EA'%3EEP%3C/text%3E%3C/svg%3E"
+               class="w-11 h-11 rounded-full object-cover ring-1 ring-white/25"/>
+          <p class="font-display text-paper text-lg tracking-wide">ESTILO PRIME</p>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-paper/60 max-w-xs">Curadoria de menswear com caimento de alta presença. Da arara física de Itaiçaba para o Brasil.</p>
+        <div class="flex gap-3 mt-6">
+          <a href="https://www.instagram.com/estiloprime.store/" target="_blank" rel="noopener" aria-label="Instagram" class="w-12 h-12 grid place-items-center border border-white/15 hover:border-goldl text-paper/70 hover:text-goldl rounded-full"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+          <a href="https://wa.me/5588999999999" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-12 h-12 grid place-items-center border border-white/15 hover:border-emerald-400 text-paper/70 hover:text-emerald-400 rounded-full"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
+        </div>
+      </div>
+      <div class="md:justify-self-center">
+        <p class="mono-tag text-goldl mb-5">NAVEGAÇÃO</p>
+        <ul class="space-y-3 text-sm uppercase tracking-wider text-paper/75">
+          <li><a href="#colecoes" class="hover:text-goldl">Coleções</a></li>
+          <li><a href="#catalogo" class="hover:text-goldl">Catálogo</a></li>
+          <li><a href="#lookbook" class="hover:text-goldl">Lookbook</a></li>
+          <li><a href="#instagram" class="hover:text-goldl">Instagram</a></li>
+          <li><a href="#mapa" class="hover:text-goldl">Onde estamos</a></li>
+          <li><a href="/admin/dashboard" class="hover:text-goldl inline-flex items-center gap-1.5"><i data-lucide="shield" class="w-3.5 h-3.5"></i> Painel Lojista</a></li>
+        </ul>
+      </div>
+      <div class="md:justify-self-end">
+        <p class="mono-tag text-goldl mb-5">CONTATO</p>
+        <ul class="space-y-3 text-sm text-paper/75">
+          <li class="inline-flex items-center gap-2"><i data-lucide="instagram" class="w-4 h-4 text-goldl"></i> @estiloprime.store</li>
+          <li class="inline-flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-goldl"></i> Itaiçaba — CE, Brasil</li>
+          <li class="inline-flex items-center gap-2"><i data-lucide="truck" class="w-4 h-4 text-goldl"></i> Entrega grátis na cidade</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="select-none pointer-events-none px-2 -mb-2 sm:-mb-4" data-plx="0.04">
+    <p class="font-display text-center leading-[0.85] whitespace-nowrap text-transparent opacity-40" style="-webkit-text-stroke:1px rgba(246,242,234,.4);font-size:clamp(3rem,12.5vw,11rem)">ESTILO PRIME</p>
+  </div>
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 mono-tag !text-paper/40" style="font-size:10px">
+    <span>© 2026 ESTILO PRIME STORE — TODOS OS DIREITOS RESERVADOS</span>
+    <span>FEITO NA ARARA · ITAIÇABA — CE</span>
+  </div>
+</footer>
+
+<!-- QUICKVIEW (bottom-sheet mobile) -->
+<div id="quickview-modal" class="fixed inset-0 z-50 bg-ink/45 backdrop-blur-sm hidden items-end sm:items-center justify-center sm:p-6 overflow-y-auto">
+  <div class="relative w-full max-w-4xl bg-card border border-edge shadow-[0_-10px_40px_-12px_rgba(23,20,15,.3)] my-auto rounded-t-2xl sm:rounded-2xl max-h-[94vh] sm:max-h-none overflow-y-auto">
+    <div class="sm:hidden sticky top-0 z-30 bg-card pt-3 pb-1"><div class="mx-auto h-1.5 w-12 rounded-full bg-edge2"></div></div>
+    <button onclick="closeQuickView()" class="absolute top-4 right-4 z-20 w-11 h-11 bg-paper border border-edge2 hover:border-ink text-mut hover:text-ink flex items-center justify-center rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="relative min-h-[340px] md:min-h-[600px] grainy">
+        <img id="qv-img" src="" alt="" class="absolute inset-0 w-full h-full object-cover"/>
+        <span class="absolute top-4 left-4 z-[3] bg-white/90 backdrop-blur border border-black/10 px-3 py-1.5 mono-tag !text-ink rounded-full"><span id="qv-badge">—</span></span>
+      </div>
+      <div class="p-5 sm:p-10 flex flex-col">
+        <p id="qv-category" class="mono-tag text-gold mb-3">— // MENSWEAR</p>
+        <h3 id="qv-title" class="font-display uppercase text-ink" style="font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.03">—</h3>
+        <div class="flex items-baseline gap-3 mt-5 pb-6 border-b border-edge">
+          <span id="qv-price" class="font-display text-3xl text-ink tabular-nums">R$ 0,00</span>
+          <span id="qv-oldprice" class="text-sm text-faint line-through font-mono tabular-nums">R$ 0,00</span>
+          <span class="ml-auto px-2.5 py-1 border border-emerald-500/40 bg-emerald-500/10 mono-tag text-emerald-700" style="font-size:9px">EM ESTOQUE</span>
+        </div>
+        <p id="qv-desc" class="mt-6 text-base leading-relaxed text-mut">—</p>
+        <div class="mt-7"><p class="mono-tag text-mut mb-3">GRADE MASCULINA</p><div id="qv-sizes" class="flex items-center gap-2.5 flex-wrap"></div></div>
+        <div class="mt-7 p-4 border border-edge bg-paper flex items-center gap-3 text-sm text-ink/80 rounded-xl"><i data-lucide="truck" class="w-5 h-5 text-gold shrink-0"></i><span><strong class="text-ink">Entrega grátis em Itaiçaba</strong> ou retire no balcão para provar.</span></div>
+        <div class="pt-7 mt-auto space-y-3">
+          <button onclick="addCurrentProductToCart()" class="btn-ink w-full !py-4"><i data-lucide="shopping-bag" class="w-5 h-5"></i> Adicionar à Comanda</button>
+          <a href="https://wa.me/5588999999999" target="_blank" rel="noopener" class="btn-wa w-full !py-4"><i data-lucide="message-circle" class="w-5 h-5"></i> Tirar dúvida no WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div id="cart-drawer-overlay" class="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm hidden transition-opacity duration-300">
+  <div id="cart-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-paper border-l border-edge flex flex-col translate-x-full transition-transform duration-300 ease-out">
+    <div class="p-5 border-b border-edge flex items-center justify-between">
+      <div><h3 class="display-sm">Comanda Digital</h3><p class="mono-tag text-faint mt-1" style="font-size:9px">ESTILO PRIME · MENSWEAR</p></div>
+      <button onclick="closeCartDrawer()" class="w-11 h-11 border border-edge2 hover:border-ink text-mut hover:text-ink flex items-center justify-center rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
+    <div class="p-5 border-t border-edge space-y-4 bg-white">
+      <div class="space-y-2.5">
+        <input id="order-customer-name" type="text" placeholder="Seu nome completo *" class="inp"/>
+        <input id="order-customer-phone" type="tel" placeholder="WhatsApp com DDD *" class="inp"/>
+      </div>
+      <div>
+        <p class="mono-tag text-mut mb-2">LOCAL DE RECEBIMENTO</p>
+        <select id="delivery-zone-select" onchange="updateDeliveryFee()" class="inp !py-3.5 !rounded-xl">
+          <option value="itaiçaba" data-fee="0.00" selected>Entrega em Itaiçaba — GRÁTIS</option>
+          <option value="balcao" data-fee="0.00">Retirada no balcão — GRÁTIS</option>
+          <option value="jaguaruana" data-fee="10.00">Jaguaruana — R$ 10,00</option>
+          <option value="palhano" data-fee="8.00">Palhano — R$ 8,00</option>
+          <option value="russas" data-fee="20.00">Russas — R$ 20,00</option>
+          <option value="aracati" data-fee="15.00">Aracati — R$ 15,00</option>
+        </select>
+      </div>
+      <div class="space-y-2 border-t border-edge pt-4 mono-tag" style="font-size:11px">
+        <div class="flex justify-between text-mut"><span>SUBTOTAL</span><span id="cart-subtotal" class="text-ink">R$ 0,00</span></div>
+        <div class="flex justify-between text-mut"><span>ENTREGA</span><span id="cart-delivery-fee" class="text-emerald-600 font-bold">GRÁTIS</span></div>
+        <div class="flex justify-between items-baseline pt-2"><span class="text-ink">TOTAL</span><span id="cart-total" class="font-display text-2xl text-ink tabular-nums">R$ 0,00</span></div>
+      </div>
+      <button onclick="generateAndSendOrder()" class="btn-wa w-full !py-4"><i data-lucide="message-circle" class="w-5 h-5"></i> Fechar no WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER SUCCESS -->
+<div id="order-success-modal" class="fixed inset-0 z-50 bg-ink/45 backdrop-blur-sm hidden items-end sm:items-center justify-center sm:p-6 overflow-y-auto">
+  <div class="relative w-full max-w-lg bg-card border border-edge p-6 sm:p-10 text-center my-auto rounded-t-2xl sm:rounded-2xl max-h-[94vh] overflow-y-auto">
+    <div class="sm:hidden sticky -top-6 z-30 bg-card pt-3 pb-1 -mx-6"><div class="mx-auto h-1.5 w-12 rounded-full bg-edge2"></div></div>
+    <div class="w-16 h-16 mx-auto border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 flex items-center justify-center rounded-full"><i data-lucide="check" class="w-8 h-8"></i></div>
+    <p class="mono-tag text-emerald-600 mt-6 mb-2">COMANDA GERADA COM SUCESSO</p>
+    <h3 id="success-order-id" class="font-display text-5xl text-ink">#EP-0000</h3>
+    <p class="mt-4 text-sm text-mut leading-relaxed">Copie a chave Pix, envie o comprovante no WhatsApp da loja e pronto.</p>
+    <div id="formatted-comanda-text" class="mt-6 p-4 bg-paper border border-edge text-left font-mono text-xs leading-relaxed text-ink/85 whitespace-pre-line select-all max-h-60 overflow-y-auto rounded-xl"></div>
+    <div class="mt-5 p-5 border border-edge bg-white text-left space-y-3 rounded-xl">
+      <div class="flex items-center justify-between mono-tag text-gold" style="font-size:10px"><span>CHAVE PIX — ESTILO PRIME</span><span class="text-faint">CELULAR</span></div>
+      <div class="flex items-center gap-2">
+        <input id="pix-key-input" type="text" readonly value="88999999999" class="inp font-mono !text-ink select-all"/>
+        <button onclick="copyPixKey()" class="btn-ink !px-5 !py-3 shrink-0"><i data-lucide="copy" class="w-4 h-4"></i> <span id="copy-btn-text">Copiar</span></button>
+      </div>
+    </div>
+    <div class="mt-7 space-y-3">
+      <a id="success-whatsapp-link" href="#" target="_blank" rel="noopener" class="btn-wa w-full !py-4"><i data-lucide="send" class="w-5 h-5"></i> Abrir WhatsApp com a Comanda</a>
+      <button onclick="closeOrderSuccessModal()" class="btn-line w-full">Fechar e continuar navegando</button>
+    </div>
+  </div>
+</div>

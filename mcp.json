@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "font-mcp": {
+      "command": "npx",
+      "args": ["-y", "@microck/font-mcp"]
+    },
+    "google-fonts": {
+      "command": "npx",
+      "args": ["-y", "google-fonts-mcp"]
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": ["-y", "shadcn-ui-mcp"]
+    },
+    "lucide-icons": {
+      "command": "npx",
+      "args": ["-y", "@lucide/mcp"]
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server"]
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-figma"]
+    }
+  }
+}

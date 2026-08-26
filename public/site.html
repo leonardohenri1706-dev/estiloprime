@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ESTILO PRIME — Menswear Editorial</title>
+  <meta name="description" content="Estilo Prime Store (@estiloprime.store): polos tech, oversized boxy 240g/m², camisas de time, bonés e bermudas de linho." />
+  <link id="favicon" rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='42' font-family='Arial Black' font-size='26' font-weight='900' text-anchor='middle' fill='%23c8a94e'%3EEP%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Archivo:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <script>window.tailwind={config:{theme:{extend:{colors:{
+    bg:'#0a0a0a',card:'#141414',surface:'#1a1a1a',
+    border:'#262626','border-light':'#333333',
+    ink:'#fafafa','ink-muted':'#737373','ink-faint':'#525252',
+    gold:'#c8a94e','gold-light':'#dbb960','gold-soft':'#e8d48b'
+  },fontFamily:{
+    display:['Anton','Impact','sans-serif'],
+    serif:['Fraunces','Georgia','serif'],
+    sans:['Archivo','system-ui','sans-serif'],
+    mono:['"Space Mono"','monospace']
+  },boxShadow:{
+    card:'0 1px 2px rgba(0,0,0,.12),0 8px 24px -16px rgba(0,0,0,.45)',
+    lift:'0 2px 4px rgba(0,0,0,.15),0 18px 40px -22px rgba(0,0,0,.55)'
+  }}}};</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#0a0a0a;--card:#141414;--surface:#1a1a1a;
+      --border:#262626;--border-light:#333333;
+      --ink:#fafafa;--ink-muted:#737373;--ink-faint:#525252;
+      --gold:#c8a94e;--gold-light:#dbb960;--gold-soft:#e8d48b;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px}
+    body{background:var(--bg);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:rgba(200,169,78,.35);color:var(--ink)}
+
+    .grainy{position:relative}
+    .grainy::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");background-size:180px 180px;mix-blend-mode:screen;opacity:.04;z-index:2}
+
+    .display-xl{font-family:'Anton';font-size:clamp(3rem,8vw,7rem);line-height:.92;text-transform:uppercase;color:var(--ink);letter-spacing:.005em}
+    .display-lg{font-family:'Anton';font-size:clamp(2.2rem,4.6vw,4.2rem);line-height:.94;text-transform:uppercase;color:var(--ink)}
+    .display-md{font-family:'Anton';font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.02;text-transform:uppercase;color:var(--ink)}
+    .display-sm{font-family:'Anton';font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.05;text-transform:uppercase;color:var(--ink)}
+    .acc{color:var(--gold)}
+    .fade-ink{color:#333333;-webkit-text-stroke:0}
+
+    .mono-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;color:var(--ink-muted)}
+
+    .btn-ink{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--gold);color:var(--bg);border:1px solid var(--gold);font-weight:800;font-size:13px;letter-spacing:.07em;text-transform:uppercase;padding:17px 30px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+    .btn-ink:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(200,169,78,.45)}
+    .btn-ink:active{transform:translateY(0) scale(.99)}
+    .btn-line{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--card);border:1px solid var(--border-light);color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.07em;text-transform:uppercase;padding:15px 27px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:border-color .18s,color .18s,background .18s,transform .18s,box-shadow .18s;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+    .btn-line:hover{border-color:var(--gold);color:var(--gold);background:var(--surface);transform:translateY(-1px);box-shadow:0 8px 20px -12px rgba(200,169,78,.35)}
+    .btn-wa{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#128C4B;color:#fff;border:1px solid #0C6B39;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:15px 26px;border-radius:999px;cursor:pointer;transition:transform .18s,box-shadow .18s}
+    .btn-wa:hover{transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(18,140,75,.55)}
+
+    .frame{position:relative}
+    .tick{position:absolute;width:14px;height:14px;z-index:3;pointer-events:none;border-color:rgba(255,255,255,.2)!important}
+    .tick-tl{top:-1px;left:-1px;border-top:1px solid;border-left:1px solid}
+    .tick-tr{top:-1px;right:-1px;border-top:1px solid;border-right:1px solid}
+    .tick-bl{bottom:-1px;left:-1px;border-bottom:1px solid;border-left:1px solid}
+    .tick-br{bottom:-1px;right:-1px;border-bottom:1px solid;border-right:1px solid}
+
+    .card-hover{transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color .3s ease}
+    .card-hover:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 22px 44px -24px rgba(0,0,0,.5);border-color:var(--border-light)}
+    .card-hover.is-tilting{transition:transform .06s linear}
+
+    .marquee{overflow:hidden}
+    .marquee-track{display:flex;width:max-content;animation:marq 34s linear infinite;will-change:transform;backface-visibility:hidden}
+    @keyframes marq{to{transform:translateX(-50%)}}
+    .sep{flex-shrink:0;width:7px;height:7px;margin:0 30px;background:var(--gold);transform:rotate(45deg)}
+
+    .rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
+    .rv.in{opacity:1;transform:none}
+
+    .crs-vp{overflow:hidden;touch-action:pan-y}
+    .crs-track{display:flex;gap:22px;will-change:transform;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+    .crs-card{flex:0 0 calc((100% - 44px)/3)}
+    @media(max-width:1023px){.crs-card{flex-basis:calc((100% - 22px)/2)}}
+    @media(max-width:639px){.crs-card{flex-basis:100%}}
+    .crs-btn{width:50px;height:50px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-light);color:var(--ink);background:var(--card);cursor:pointer;border-radius:999px;transition:all .18s;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+    .crs-btn:hover:not([disabled]){border-color:var(--gold);background:var(--gold);color:var(--bg)}
+    .crs-btn[disabled]{opacity:.35;pointer-events:none}
+    .crs-dots{display:flex;gap:7px}
+    .crs-dot{width:24px;height:3px;background:var(--border-light);cursor:pointer;border-radius:99px;transition:background .2s}
+    .crs-dot.on{background:var(--gold)}
+
+    .chip{display:inline-flex;align-items:center;gap:9px;padding:13px 21px;border:1px solid var(--border-light);background:var(--card);cursor:pointer;font-family:'Space Mono';font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);white-space:nowrap;border-radius:999px;transition:all .18s}
+    .chip:hover{border-color:var(--gold);color:var(--gold)}
+    .chip.on{background:var(--gold);color:var(--bg);border-color:var(--gold);font-weight:700}
+
+    .slide-item{opacity:0;visibility:hidden;position:absolute;inset:0;will-change:transform,opacity;transition:opacity .9s ease}
+    .slide-item.active{opacity:1;visibility:visible}
+    .slide-item img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.85) contrast(1.08);transform-origin:center center;will-change:transform}
+    #hero-text-block{will-change:transform,opacity}
+    .hero-line{overflow:hidden;display:block}
+    .hero-line-inner{display:block;transform:translateY(112%);opacity:0;transition:transform .85s cubic-bezier(.16,1,.3,1),opacity .85s ease}
+    .hero-line-inner.revealed{transform:translateY(0);opacity:1}
+    .hero-fade{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+    .hero-fade.revealed{opacity:1;transform:translateY(0)}
+    .hero-title{font-family:'Anton';font-size:clamp(3.1rem,8.6vw,7.6rem);line-height:.92;text-transform:uppercase;color:var(--ink);letter-spacing:.002em}
+    .tx-serif{font-family:'Fraunces',Georgia,serif !important;font-style:italic;font-weight:520;text-transform:none;letter-spacing:0}
+    .txt-mut{color:var(--ink-muted)}
+
+    .nav-link{position:relative;font-size:12px}
+    .nav-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--gold);transition:width .25s ease}
+    .nav-link:hover::after{width:100%}
+
+    .inp{background:var(--surface);border:1px solid var(--border-light);color:var(--ink);border-radius:999px;font-size:14px;padding:13px 18px;width:100%;outline:none;transition:border-color .18s,box-shadow .18s;font-family:'Archivo'}
+    .inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,169,78,.15)}
+    .inp::placeholder{color:var(--ink-faint)}
+
+    #scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:80;background:linear-gradient(90deg,var(--gold),var(--gold-light))}
+    [data-plx]{will-change:transform}
+
+    .scroll-cue span.bar{display:block;width:1px;height:46px;background:linear-gradient(to bottom,var(--gold),transparent);animation:cue 1.6s ease-in-out infinite}
+    @keyframes cue{0%,100%{opacity:.25;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+    ::-webkit-scrollbar{width:10px;height:10px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:99px;border:3px solid var(--bg)}
+    ::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+    a,button{transition:all .18s ease}
+    :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+    .ig-skel{aspect-ratio:1;background:linear-gradient(100deg,var(--surface) 40%,var(--border) 50%,var(--surface) 60%);background-size:200% 100%;animation:shimmer 1.3s infinite;border-radius:14px}
+    @keyframes shimmer{to{background-position:-200% 0}}
+
+    @media(prefers-reduced-motion:reduce){
+      .marquee-track{animation:none}
+      .rv{opacity:1;transform:none;transition:none}
+      .hero-line-inner{transform:none;opacity:1}
+      .hero-fade{opacity:1;transform:none}
+      .scroll-cue .bar{animation:none;opacity:.4}
+      .ig-skel{animation:none}
+    }
+  </style>
+</head>
+<body>
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- TICKER -->
+<div class="bg-surface text-ink marquee py-2.5" aria-hidden="true">
+  <div class="marquee-track items-center">
+    <div class="flex items-center shrink-0">
+      <span class="mono-tag !text-ink/60 whitespace-nowrap">FRETE GRÁTIS PARA TODO O BRASIL</span><span class="sep"></span>
+      <span class="mono-tag !text-gold whitespace-nowrap">COMANDA DIRETA NO WHATSAPP</span><span class="sep"></span>
+      <span class="mono-tag !text-ink/60 whitespace-nowrap">@ESTILOPRIME.STORE</span><span class="sep"></span>
+      <span class="mono-tag !text-ink-muted whitespace-nowrap">SUMMER 2026 · DROP 02</span><span class="sep"></span>
+    </div>
+    <div class="flex items-center shrink-0">
+      <span class="mono-tag !text-ink/60 whitespace-nowrap">FRETE GRÁTIS PARA TODO O BRASIL</span><span class="sep"></span>
+      <span class="mono-tag !text-gold whitespace-nowrap">COMANDA DIRETA NO WHATSAPP</span><span class="sep"></span>
+      <span class="mono-tag !text-ink/60 whitespace-nowrap">@ESTILOPRIME.STORE</span><span class="sep"></span>
+      <span class="mono-tag !text-ink-muted whitespace-nowrap">SUMMER 2026 · DROP 02</span><span class="sep"></span>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<header class="sticky top-0 z-50 w-full bg-bg border-b border-border shadow-[0_2px_16px_rgba(0,0,0,.4)]">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 h-[76px] flex items-center justify-between gap-3">
+    <a href="#" class="flex items-center gap-3 group shrink-0">
+      <img id="brand-avatar" alt="Estilo Prime"
+           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='42' font-family='Arial Black' font-size='24' font-weight='900' text-anchor='middle' fill='%23c8a94e'%3EEP%3C/text%3E%3C/svg%3E"
+           class="w-11 h-11 rounded-full object-cover ring-1 ring-gold/30 group-hover:ring-gold/60 transition-all"/>
+      <div class="leading-none min-[400px]:block hidden">
+        <p class="font-display text-ink text-lg tracking-wide">ESTILO PRIME</p>
+        <p id="brand-sub" class="mono-tag mt-1" style="font-size:9px">@estiloprime.store · MENSWEAR</p>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-8 font-semibold uppercase tracking-[0.16em] text-ink/50">
+      <a href="#colecoes" class="nav-link hover:text-ink">Coleções</a>
+      <a href="#catalogo" class="nav-link hover:text-ink">Catálogo</a>
+      <a href="#galeria" class="nav-link hover:text-ink">Galeria</a>
+      <a href="#lookbook" class="nav-link hover:text-ink">Lookbook</a>
+      <a href="#instagram" class="nav-link hover:text-ink">Instagram</a>
+      <a href="#mapa" class="nav-link hover:text-ink">Onde estamos</a>
+    </nav>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <a href="/admin/dashboard" title="Painel do Lojista"
+         class="hidden sm:inline-flex items-center gap-1.5 mono-tag border border-border-light bg-card px-3.5 py-2.5 text-ink hover:text-gold hover:border-gold rounded-full shadow-sm">
+        <i data-lucide="shield" class="w-4 h-4"></i> Admin
+      </a>
+      <button onclick="openCartDrawer()" class="btn-ink !py-3 relative">
+        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">Comanda</span>
+        <span id="cart-counter" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-gold text-bg text-[11px] font-mono flex items-center justify-center border-2 border-bg">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero-slider" class="relative min-h-[88vh] lg:min-h-[94vh] flex items-center overflow-hidden bg-card">
+  <div id="slides-wrapper" class="absolute inset-0">
+    <div class="slide-item active" id="slide-0"><img id="slide-img-0" src="https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?auto=format&fit=crop&w=2400&q=90" alt="Camiseta Oversized Boxy branca"/></div>
+    <div class="slide-item" id="slide-1"><img id="slide-img-1" src="https://images.unsplash.com/photo-1759308553457-6f7f0850d9cd?auto=format&fit=crop&w=2400&q=90" alt="Jersey retrô número 10"/></div>
+    <div class="slide-item" id="slide-2"><img id="slide-img-2" src="https://images.unsplash.com/photo-1562247879-0eac107b7e76?auto=format&fit=crop&w=2400&q=90" alt="Bermuda de linho alfaiataria"/></div>
+    <div class="slide-item" id="slide-3"><img id="slide-img-3" src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=2400&q=90" alt="Polo Tech Black Zíper"/></div>
+    <div class="absolute inset-0" style="background:linear-gradient(90deg,#0a0a0a 0%,rgba(10,10,10,.94) 34%,rgba(10,10,10,.25) 62%,rgba(10,10,10,.35) 100%)"></div>
+    <div class="absolute inset-x-0 bottom-0 h-40" style="background:linear-gradient(to top,#0a0a0a,transparent)"></div>
+  </div>
+
+  <p class="hidden xl:block absolute left-7 top-1/2 -translate-y-1/2 -rotate-90 origin-left mono-tag tracking-[0.4em] text-ink-faint">NOSSA LOJA · ESTILO PRIME</p>
+  <div id="slide-ghost-num" data-plx="0.06" class="hidden lg:block absolute right-10 bottom-24 font-display text-[230px] leading-none select-none pointer-events-none fade-ink opacity-30">01</div>
+
+  <div class="relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-20">
+    <div id="hero-text-block" class="max-w-3xl space-y-7">
+      <div class="hero-fade inline-flex items-center gap-2.5 bg-card border border-border-light px-4 py-2 rounded-full shadow-md">
+        <span class="w-2 h-2 bg-gold animate-pulse"></span>
+        <span id="slide-badge-text" class="mono-tag !text-ink/70">[ STREETWEAR ESSENTIALS // 240G/M² ]</span>
+      </div>
+
+      <h1 id="slide-title" class="hero-title">
+        <span class="hero-line"><span class="hero-line-inner">CAMISETAS OVERSIZED</span></span>
+        <span class="hero-line"><span class="hero-line-inner tx-serif acc" style="transition-delay:.08s">Boxy Cut</span></span>
+        <span class="hero-line"><span class="hero-line-inner txt-mut" style="transition-delay:.16s">OMBRO CAÍDO.</span></span>
+      </h1>
+
+      <div id="hero-piece" class="hero-fade inline-flex items-center gap-4 bg-card border border-border-light px-5 py-3.5 rounded-xl shadow-md" style="transition-delay:.1s">
+        <span class="w-1 h-9 bg-gold rounded-full shrink-0"></span>
+        <div class="text-left leading-tight">
+          <p class="mono-tag mb-0.5" style="font-size:9px">PEÇA DO SLIDE</p>
+          <p id="hero-piece-text" class="text-sm font-bold text-ink">Boxy White Tee — R$ 79,90</p>
+        </div>
+      </div>
+
+      <p id="slide-desc" class="hero-fade max-w-lg text-base sm:text-lg leading-relaxed text-ink/60" style="transition-delay:.14s">
+        Algodão penteado pesado com caimento reto e imponente. A silhueta que define o streetwear atual.
+      </p>
+
+      <div class="hero-fade flex flex-wrap items-center gap-3.5" style="transition-delay:.2s">
+        <a href="#catalogo" class="btn-ink !py-4 !px-9 w-full sm:w-auto">
+          <span id="slide-cta-text">Ver Oversized</span>
+          <i data-lucide="arrow-down-right" class="w-5 h-5"></i>
+        </a>
+        <a href="#lookbook" class="btn-line !py-4 w-full sm:w-auto">
+          <i data-lucide="camera" class="w-5 h-5"></i> Lookbook
+        </a>
+      </div>
+
+      <div class="hero-fade flex flex-wrap items-center gap-x-7 gap-y-2 pt-2 mono-tag" style="transition-delay:.26s">
+        <span class="flex items-center gap-2"><i data-lucide="truck" class="w-4 h-4 text-gold"></i> Frete grátis Brasil</span>
+        <span class="flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-gold"></i> Algodão 240g/m²</span>
+        <span class="flex items-center gap-2"><i data-lucide="repeat" class="w-4 h-4 text-gold"></i> Troca fácil 7 dias</span>
+      </div>
+
+      <div class="hero-fade flex items-center gap-4 pt-2 mono-tag" style="transition-delay:.32s">
+        <span id="slide-current-num" class="text-gold font-bold">01</span>
+        <div class="w-40 h-[3px] bg-border-light overflow-hidden rounded-full"><div id="slide-progress-bar" class="absolute inset-y-0 left-0 bg-gold transition-all duration-300 rounded-full" style="width:25%;height:100%"></div></div>
+        <span>04</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 right-4 sm:right-8 z-30 flex gap-2">
+    <button onclick="prevSlide()" class="crs-btn" aria-label="Slide anterior"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+    <button onclick="nextSlide()" class="crs-btn !bg-gold !text-bg !border-gold hover:!bg-gold-light" aria-label="Próximo slide"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+  </div>
+
+  <div class="scroll-cue absolute left-1/2 -translate-x-1/2 bottom-6 z-20 flex flex-col items-center gap-2 pointer-events-none" aria-hidden="true">
+    <span class="mono-tag text-ink-faint" style="font-size:9px">SCROLL</span>
+    <span class="bar"></span>
+  </div>
+</section>
+
+<!-- MARQUEE EDITORIAL -->
+<div class="bg-surface text-ink marquee py-5" aria-hidden="true">
+  <div class="marquee-track items-center" style="animation-duration:40s">
+    <div class="flex items-center shrink-0">
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2">Coleção 2026</span><span class="sep"></span>
+      <span class="font-serif italic text-gold-light text-2xl md:text-3xl whitespace-nowrap mx-2">caimento &amp;</span><span class="sep"></span>
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2" style="color:var(--gold-light)">presença</span><span class="sep"></span>
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2 text-ink-muted">Menswear</span><span class="sep"></span>
+      <span class="font-serif italic text-gold-light text-2xl md:text-3xl whitespace-nowrap mx-2">feito com alma</span><span class="sep"></span>
+    </div>
+    <div class="flex items-center shrink-0">
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2">Coleção 2026</span><span class="sep"></span>
+      <span class="font-serif italic text-gold-light text-2xl md:text-3xl whitespace-nowrap mx-2">caimento &amp;</span><span class="sep"></span>
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2" style="color:var(--gold-light)">presença</span><span class="sep"></span>
+      <span class="font-display text-4xl md:text-5xl uppercase whitespace-nowrap mx-2 text-ink-muted">Menswear</span><span class="sep"></span>
+      <span class="font-serif italic text-gold-light text-2xl md:text-3xl whitespace-nowrap mx-2">feito com alma</span><span class="sep"></span>
+    </div>
+  </div>
+</div>
+
+<!-- EXPLORADOR DE CATEGORIAS -->
+<section id="colecoes" class="relative py-14 sm:py-24 lg:py-28 w-full overflow-hidden border-b border-border">
+  <div class="relative max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 rv">
+      <div>
+        <p class="mono-tag text-gold mb-4">( 01 ) — ESCOLHA SEU TERRENO</p>
+        <h2 class="display-xl">ENTRE NA <span class="acc">CATEGORIA.</span></h2>
+        <p class="mt-5 max-w-md text-base sm:text-lg leading-relaxed text-ink-muted">
+          Toque numa categoria e entre direto nas peças dela — esporte, streetwear, alfaiataria de verão ou topo de grele.
+        </p>
+      </div>
+      <a href="#catalogo" onclick="openCategoryInCatalog(currentCat)" class="btn-line self-start lg:self-end shrink-0">
+        Ver tudo no catálogo <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+
+    <div id="cat-chips" class="flex gap-2.5 overflow-x-auto pb-3 mb-9 rv fade-x" style="--d:.08s;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)"></div>
+
+    <div class="rv" style="--d:.14s">
+      <div id="showcase-hero" class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-5 sm:mb-6"></div>
+      <div id="showcase-grid" class="grid grid-cols-2 gap-3 sm:gap-6"></div>
+    </div>
+
+    <div class="flex items-center justify-between mt-9 gap-4">
+      <div id="showcase-dots" class="crs-dots"></div>
+      <div class="flex gap-2">
+        <button class="crs-btn" onclick="showcaseNav(-1)" aria-label="Anteriores"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+        <button class="crs-btn" onclick="showcaseNav(1)" aria-label="Próximos"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section id="catalogo" class="relative py-14 sm:py-24 lg:py-28 w-full overflow-hidden border-b border-border bg-surface">
+  <div class="relative max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 rv">
+      <div>
+        <p class="mono-tag text-gold mb-4">( 02 ) — ARARA COMPLETA</p>
+        <h2 class="display-xl">CATÁLOGO<span class="acc">.</span></h2>
+        <p class="mt-5 max-w-md text-base sm:text-lg leading-relaxed text-ink-muted">Toque na peça para ver caimento, grade e fechar a comanda no WhatsApp.</p>
+      </div>
+      <div class="relative w-full md:w-96">
+        <i data-lucide="search" class="w-5 h-5 text-ink-faint absolute left-5 top-1/2 -translate-y-1/2"></i>
+        <input id="search-input" type="text" placeholder="Buscar polo, jersey, linho…" oninput="handleSearch(this.value)" class="inp !pl-12"/>
+      </div>
+    </div>
+
+    <div id="catalog-filters" class="flex items-center gap-2.5 overflow-x-auto pb-4 mb-6 rv fade-x" style="--d:.06s;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)"></div>
+
+    <div class="flex items-center gap-2 mb-10 flex-wrap mono-tag rv" style="--d:.1s">
+      <span class="flex items-center gap-2 mr-1"><i data-lucide="filter" class="w-4 h-4 text-gold"></i> Grade:</span>
+      <button onclick="filterSize('all',event)" class="size-filter-btn active px-4 py-2.5 border border-gold bg-gold text-bg rounded-full">Todos</button>
+      <button onclick="filterSize('P',event)" class="size-filter-btn px-4 py-2.5 border border-border-light text-ink-muted hover:border-gold hover:text-gold rounded-full bg-card">P</button>
+      <button onclick="filterSize('M',event)" class="size-filter-btn px-4 py-2.5 border border-border-light text-ink-muted hover:border-gold hover:text-gold rounded-full bg-card">M</button>
+      <button onclick="filterSize('G',event)" class="size-filter-btn px-4 py-2.5 border border-border-light text-ink-muted hover:border-gold hover:text-gold rounded-full bg-card">G</button>
+      <button onclick="filterSize('GG',event)" class="size-filter-btn px-4 py-2.5 border border-border-light text-ink-muted hover:border-gold hover:text-gold rounded-full bg-card">GG</button>
+      <button onclick="filterSize('38',event)" class="size-filter-btn px-4 py-2.5 border border-border-light text-ink-muted hover:border-gold hover:text-gold rounded-full bg-card">38</button>
+      <button onclick="filterSize('40',event)" class="size-filter-btn px-4 py-2.5 border border-border-light text-ink-muted hover:border-gold hover:text-gold rounded-full bg-card">40</button>
+      <button onclick="filterSize('42',event)" class="size-filter-btn px-4 py-2.5 border border-border-light text-ink-muted hover:border-gold hover:text-gold rounded-full bg-card">42</button>
+    </div>
+
+    <div id="products-grid" class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 sm:gap-6 rv" style="--d:.12s"></div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria" class="relative py-14 sm:py-24 lg:py-28 w-full border-b border-border">
+  <div class="relative max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 rv">
+      <div>
+        <p class="mono-tag text-gold mb-4">( 03 ) — NOSSAS FOTOS</p>
+        <h2 class="display-xl">GALERIA<span class="acc">.</span></h2>
+      </div>
+    </div>
+    <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 rv" style="--d:.1s">
+      <div class="ig-skel"></div><div class="ig-skel"></div><div class="ig-skel"></div><div class="ig-skel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOOKBOOK -->
+<section id="lookbook" class="relative py-14 sm:py-24 lg:py-28 w-full border-y border-border bg-surface overflow-hidden">
+  <div class="relative max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 rv">
+      <div>
+        <p class="mono-tag text-gold mb-4">( 04 ) — ESTÉTICA &amp; CAIMENTO</p>
+        <h2 class="display-xl">LOOKS QUE <span class="font-serif italic normal-case acc text-[0.72em]">vestimos</span></h2>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button class="crs-btn" data-crs-prev="lk" aria-label="Anterior"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+        <button class="crs-btn" data-crs-next="lk" aria-label="Próximo"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+      </div>
+    </div>
+
+    <div class="rv" id="crs-lk" style="--d:.1s">
+      <div class="crs-vp"><div class="crs-track" id="lk-track"></div></div>
+      <div class="flex items-center justify-between mt-7">
+        <div class="crs-dots" id="lk-dots"></div>
+        <p class="mono-tag text-ink-faint hidden sm:block">ARRASTE OU USE AS SETAS ← →</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section id="instagram" class="relative py-14 sm:py-24 lg:py-28 w-full border-b border-border">
+  <div class="relative max-w-[1440px] mx-auto px-4 sm:px-8">
+
+    <div class="flex flex-col sm:flex-row sm:items-center gap-6 rounded-2xl border border-border bg-card p-5 sm:p-8 mb-8 shadow-card rv">
+      <img id="ig-avatar" alt="Perfil Estilo Prime"
+           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='42' font-family='Arial Black' font-size='24' font-weight='900' text-anchor='middle' fill='%23c8a94e'%3EEP%3C/text%3E%3C/svg%3E"
+           class="w-20 h-20 rounded-full object-cover ring-2 ring-offset-2 ring-gold shrink-0 ring-offset-bg"/>
+      <div class="min-w-0 flex-1">
+        <h2 class="display-md !text-2xl sm:!text-3xl">estiloprime.store</h2>
+        <p id="ig-meta" class="mt-1.5 text-sm sm:text-base text-ink-muted">Moda Masculina &amp; Streetwear</p>
+      </div>
+      <a href="https://www.instagram.com/estiloprime.store/" target="_blank" rel="noopener" class="btn-ink shrink-0">
+        <i data-lucide="instagram" class="w-5 h-5"></i> Seguir
+      </a>
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7 rv" style="--d:.06s">
+      <p class="mono-tag text-gold">( 05 ) — FEED AO VIVO</p>
+      <p id="ig-status" class="mono-tag text-ink-faint">CARREGANDO FEED…</p>
+    </div>
+
+    <div id="ig-feed" class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 rv" style="--d:.1s">
+      <div class="ig-skel"></div><div class="ig-skel"></div><div class="ig-skel"></div>
+      <div class="ig-skel"></div><div class="ig-skel"></div><div class="ig-skel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<section id="mapa" class="relative bg-surface border-t border-border w-full">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-14 sm:py-24">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-9 rv">
+      <div>
+        <p class="mono-tag text-gold mb-4">( 06 ) — ONDE ESTAMOS</p>
+        <h2 class="display-lg">PASSA NO <span class="acc">BALCÃO.</span></h2>
+      </div>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Estilo+Prime+Store" target="_blank" rel="noopener" class="btn-ink shrink-0">
+        <i data-lucide="navigation" class="w-5 h-5"></i> Traçar rota
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 rv" style="--d:.1s">
+      <div class="lg:col-span-8 frame min-h-[320px]">
+        <iframe title="Nossa Loja — Estilo Prime Store" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+          class="w-full h-[340px] lg:h-full block border-0 rounded-2xl shadow-card"
+          style="filter:grayscale(1) contrast(.98) brightness(.6)"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50000!2d0!3d0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNOKBuDAwLjAiTiAwwrAwMCcwMC4wIlc!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"></iframe>
+      </div>
+      <div class="lg:col-span-4 bg-card border border-border rounded-2xl shadow-card p-6 sm:p-8 space-y-6">
+        <div>
+          <p class="mono-tag text-gold mb-2">ENDEREÇO</p>
+          <p class="text-base text-ink font-semibold">Nossa Loja — Centro</p>
+          <p class="text-sm text-ink-muted mt-1">Rua principal, ao lado da praça</p>
+        </div>
+        <div>
+          <p class="mono-tag text-gold mb-2">HORÁRIO DO BALCÃO</p>
+          <p class="text-sm text-ink tabular-nums font-medium">SEG — SEX · 08h às 18h</p>
+          <p class="text-sm text-ink tabular-nums font-medium">SÁB · 08h às 12h</p>
+        </div>
+        <div>
+          <p class="mono-tag text-gold mb-2">RETIRADA &amp; PROVA</p>
+          <p class="text-sm text-ink-muted leading-relaxed">Peça pela comanda digital e retire no balcão para provar antes de levar. Troca fácil em até 7 dias.</p>
+        </div>
+        <a href="https://wa.me/5588999999999?text=Quero%20retirar%20no%20balc%C3%A3o!" target="_blank" rel="noopener" class="btn-wa w-full !justify-center">
+          <i data-lucide="message-circle" class="w-5 h-5"></i> Combinar retirada
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-surface text-ink pt-16 pb-8 w-full overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-14 border-b border-border-light">
+      <div>
+        <div class="flex items-center gap-3">
+          <img id="footer-avatar" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%230a0a0a'/%3E%3Ctext x='24' y='31' font-family='Arial Black' font-size='18' font-weight='900' text-anchor='middle' fill='%23c8a94e'%3EEP%3C/text%3E%3C/svg%3E"
+               class="w-11 h-11 rounded-full object-cover ring-1 ring-gold/30"/>
+          <p class="font-display text-ink text-lg tracking-wide">ESTILO PRIME</p>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-ink/50 max-w-xs">Curadoria de menswear com caimento de alta presença. Estilo que vai onde você vai.</p>
+        <div class="flex gap-3 mt-6">
+          <a href="https://www.instagram.com/estiloprime.store/" target="_blank" rel="noopener" aria-label="Instagram" class="w-12 h-12 grid place-items-center border border-border-light bg-card hover:border-gold text-ink hover:text-gold rounded-full shadow-sm"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+          <a href="https://wa.me/5588999999999" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-12 h-12 grid place-items-center border border-border-light bg-card hover:border-emerald-400 text-ink hover:text-emerald-400 rounded-full shadow-sm"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
+        </div>
+      </div>
+      <div class="md:justify-self-center">
+        <p class="mono-tag text-gold-light mb-5">NAVEGAÇÃO</p>
+        <ul class="space-y-3 text-sm uppercase tracking-wider text-ink/60">
+          <li><a href="#colecoes" class="hover:text-gold">Coleções</a></li>
+          <li><a href="#catalogo" class="hover:text-gold">Catálogo</a></li>
+          <li><a href="#galeria" class="hover:text-gold">Galeria</a></li>
+          <li><a href="#lookbook" class="hover:text-gold">Lookbook</a></li>
+          <li><a href="#instagram" class="hover:text-gold">Instagram</a></li>
+          <li><a href="#mapa" class="hover:text-gold">Onde estamos</a></li>
+          <li><a href="/admin/dashboard" class="hover:text-gold inline-flex items-center gap-1.5"><i data-lucide="shield" class="w-3.5 h-3.5"></i> Painel Lojista</a></li>
+        </ul>
+      </div>
+      <div class="md:justify-self-end">
+        <p class="mono-tag text-gold-light mb-5">CONTATO</p>
+        <ul class="space-y-3 text-sm text-ink/60">
+          <li class="inline-flex items-center gap-2"><i data-lucide="instagram" class="w-4 h-4 text-gold"></i> @estiloprime.store</li>
+          <li class="inline-flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-gold"></i> Nossa Loja — Brasil</li>
+          <li class="inline-flex items-center gap-2"><i data-lucide="truck" class="w-4 h-4 text-gold"></i> Entrega grátis para todo o Brasil</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="select-none pointer-events-none px-2 -mb-2 sm:-mb-4" data-plx="0.04">
+    <p class="font-display text-center leading-[0.85] whitespace-nowrap text-transparent opacity-20" style="-webkit-text-stroke:1px rgba(200,169,78,.4);font-size:clamp(3rem,12.5vw,11rem)">ESTILO PRIME</p>
+  </div>
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 mono-tag !text-ink-muted" style="font-size:10px">
+    <span>© 2026 ESTILO PRIME STORE — TODOS OS DIREITOS RESERVADOS</span>
+    <span>FEITO COM ALMA</span>
+  </div>
+</footer>
+
+<!-- QUICKVIEW (bottom-sheet mobile) -->
+<div id="quickview-modal" class="fixed inset-0 z-50 bg-black/75 hidden items-end sm:items-center justify-center sm:p-6 overflow-y-auto">
+  <div class="relative w-full max-w-4xl bg-card border border-border shadow-[0_-10px_40px_-12px_rgba(0,0,0,.6)] my-auto rounded-t-2xl sm:rounded-2xl max-h-[94vh] sm:max-h-none overflow-y-auto">
+    <div class="sm:hidden sticky top-0 z-30 bg-card pt-3 pb-1"><div class="mx-auto h-1.5 w-12 rounded-full bg-border-light"></div></div>
+    <button onclick="closeQuickView()" class="absolute top-4 right-4 z-20 w-11 h-11 bg-surface border border-border-light hover:border-gold text-ink-muted hover:text-ink flex items-center justify-center rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="relative min-h-[340px] md:min-h-[600px] grainy">
+        <img id="qv-img" src="" alt="" class="absolute inset-0 w-full h-full object-cover"/>
+        <span class="absolute top-4 left-4 z-[3] bg-bg border border-border px-3 py-1.5 mono-tag !text-ink rounded-full shadow-md"><span id="qv-badge">—</span></span>
+      </div>
+      <div class="p-5 sm:p-10 flex flex-col">
+        <p id="qv-category" class="mono-tag text-gold mb-3">— // MENSWEAR</p>
+        <h3 id="qv-title" class="font-display uppercase text-ink" style="font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.03">—</h3>
+        <div class="flex items-baseline gap-3 mt-5 pb-6 border-b border-border">
+          <span id="qv-price" class="font-display text-3xl text-ink tabular-nums">R$ 0,00</span>
+          <span id="qv-oldprice" class="text-sm text-ink-faint line-through font-mono tabular-nums">R$ 0,00</span>
+          <span class="ml-auto px-2.5 py-1 border border-emerald-500/40 bg-emerald-500/10 mono-tag text-emerald-400" style="font-size:9px">EM ESTOQUE</span>
+        </div>
+        <p id="qv-desc" class="mt-6 text-base leading-relaxed text-ink-muted">—</p>
+        <div class="mt-7"><p class="mono-tag text-ink-muted mb-3">GRADE MASCULINA</p><div id="qv-sizes" class="flex items-center gap-2.5 flex-wrap"></div></div>
+        <div class="mt-7 p-4 border border-border bg-surface flex items-center gap-3 text-sm text-ink/70 rounded-xl"><i data-lucide="truck" class="w-5 h-5 text-gold shrink-0"></i><span><strong class="text-ink">Entrega grátis</strong> ou retire no balcão para provar.</span></div>
+        <div class="pt-7 mt-auto space-y-3">
+          <button onclick="addCurrentProductToCart()" class="btn-ink w-full !py-4"><i data-lucide="shopping-bag" class="w-5 h-5"></i> Adicionar à Comanda</button>
+          <a href="https://wa.me/5588999999999" target="_blank" rel="noopener" class="btn-wa w-full !py-4"><i data-lucide="message-circle" class="w-5 h-5"></i> Tirar dúvida no WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div id="cart-drawer-overlay" class="fixed inset-0 z-50 bg-black/75 hidden transition-opacity duration-300">
+  <div id="cart-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-bg border-l border-border flex flex-col translate-x-full transition-transform duration-300 ease-out">
+    <div class="p-5 border-b border-border flex items-center justify-between">
+      <div><h3 class="display-sm">Comanda Digital</h3><p class="mono-tag text-ink-faint mt-1" style="font-size:9px">ESTILO PRIME · MENSWEAR</p></div>
+      <button onclick="closeCartDrawer()" class="w-11 h-11 border border-border-light bg-card hover:border-gold text-ink-muted hover:text-ink flex items-center justify-center rounded-full shadow-sm"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
+    <div class="p-5 border-t border-border space-y-4 bg-card">
+      <div class="space-y-2.5">
+        <input id="order-customer-name" type="text" placeholder="Seu nome completo *" class="inp"/>
+        <input id="order-customer-phone" type="tel" placeholder="WhatsApp com DDD *" class="inp"/>
+      </div>
+      <div>
+        <p class="mono-tag text-ink-muted mb-2">LOCAL DE RECEBIMENTO</p>
+        <select id="delivery-zone-select" onchange="updateDeliveryFee()" class="inp !py-3.5 !rounded-xl">
+          <option value="nacional" data-fee="0.00" selected>Entrega nacional — GRÁTIS</option>
+          <option value="balcao" data-fee="0.00">Retirada no balcão — GRÁTIS</option>
+        </select>
+      </div>
+      <div class="space-y-2 border-t border-border pt-4 mono-tag" style="font-size:11px">
+        <div class="flex justify-between text-ink-muted"><span>SUBTOTAL</span><span id="cart-subtotal" class="text-ink">R$ 0,00</span></div>
+        <div class="flex justify-between text-ink-muted"><span>ENTREGA</span><span id="cart-delivery-fee" class="text-emerald-400 font-bold">GRÁTIS</span></div>
+        <div class="flex justify-between items-baseline pt-2"><span class="text-ink">TOTAL</span><span id="cart-total" class="font-display text-2xl text-ink tabular-nums">R$ 0,00</span></div>
+      </div>
+      <div>
+        <p class="mono-tag text-ink-muted mb-2">FORMA DE PAGAMENTO</p>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" onclick="selectPayment('Dinheiro')" class="payment-opt active border rounded-xl p-3 text-center hover:border-gold transition-colors bg-card" style="border-color:var(--gold);background:var(--surface);border-width:1.5px">
+            <i data-lucide="banknote" class="w-5 h-5 mx-auto mb-1 text-gold"></i>
+            <span class="mono-tag text-ink" style="font-size:10px">Dinheiro</span>
+          </button>
+          <button type="button" onclick="selectPayment('Pix')" class="payment-opt border border-border-light bg-card rounded-xl p-3 text-center hover:border-gold transition-colors shadow-sm">
+            <i data-lucide="smartphone" class="w-5 h-5 mx-auto mb-1 text-ink-muted"></i>
+            <span class="mono-tag text-ink" style="font-size:10px">Pix</span>
+          </button>
+          <button type="button" onclick="selectPayment('Cartão')" class="payment-opt border border-border-light bg-card rounded-xl p-3 text-center hover:border-gold transition-colors shadow-sm">
+            <i data-lucide="credit-card" class="w-5 h-5 mx-auto mb-1 text-ink-muted"></i>
+            <span class="mono-tag text-ink" style="font-size:10px">Cartão</span>
+          </button>
+        </div>
+      </div>
+      <button onclick="generateAndSendOrder()" class="btn-wa w-full !py-4"><i data-lucide="message-circle" class="w-5 h-5"></i> Fechar no WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER SUCCESS -->
+<div id="order-success-modal" class="fixed inset-0 z-50 bg-black/75 hidden items-end sm:items-center justify-center sm:p-6 overflow-y-auto">
+  <div class="relative w-full max-w-lg bg-card border border-border p-6 sm:p-10 text-center my-auto rounded-t-2xl sm:rounded-2xl max-h-[94vh] overflow-y-auto">
+    <div class="sm:hidden sticky -top-6 z-30 bg-card pt-3 pb-1 -mx-6"><div class="mx-auto h-1.5 w-12 rounded-full bg-border-light"></div></div>
+    <div class="w-16 h-16 mx-auto border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 flex items-center justify-center rounded-full"><i data-lucide="check" class="w-8 h-8"></i></div>
+    <p class="mono-tag text-emerald-400 mt-6 mb-2">COMANDA GERADA COM SUCESSO</p>
+    <h3 id="success-order-id" class="font-display text-5xl text-ink">#EP-0000</h3>
+    <p id="success-instructions" class="mt-4 text-sm text-ink-muted leading-relaxed">Copie a chave Pix, envie o comprovante no WhatsApp da loja e pronto.</p>
+    <div id="formatted-comanda-text" class="mt-6 p-4 bg-surface border border-border text-left font-mono text-xs leading-relaxed text-ink/85 whitespace-pre-line select-all max-h-60 overflow-y-auto rounded-xl"></div>
+    <div id="pix-section" class="mt-5 p-5 border border-border bg-surface text-left space-y-3 rounded-xl">
+      <div class="flex items-center justify-between mono-tag text-gold" style="font-size:10px"><span>CHAVE PIX — ESTILO PRIME</span><span class="text-ink-faint">CELULAR</span></div>
+      <div class="flex items-center gap-2">
+        <input id="pix-key-input" type="text" readonly value="88999999999" class="inp font-mono !text-ink select-all"/>
+        <button onclick="copyPixKey()" class="btn-ink !px-5 !py-3 shrink-0"><i data-lucide="copy" class="w-4 h-4"></i> <span id="copy-btn-text">Copiar</span></button>
+      </div>
+    </div>
+    <div class="mt-7 space-y-3">
+      <a id="success-whatsapp-link" href="#" target="_blank" rel="noopener" class="btn-wa w-full !py-4"><i data-lucide="send" class="w-5 h-5"></i> Abrir WhatsApp com a Comanda</a>
+      <button onclick="closeOrderSuccessModal()" class="btn-line w-full">Fechar e continuar navegando</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ DADOS ============ */
+const IMG=(id,w)=>"https://images.unsplash.com/photo-"+id+"?auto=format&fit=crop&w="+(w||900)+"&q=85";
+
+const slidesData=[
+ {badge:"[ STREETWEAR ESSENTIALS // 240G/M² ]",
+  lines:[{t:"CAMISETAS OVERSIZED",c:""},{t:"Boxy Cut",c:"tx-serif acc"},{t:"OMBRO CAÍDO & GOLA GROSSA.",c:"txt-mut"}],
+  desc:"Algodão penteado pesado com caimento reto e imponente. A silhueta que define o streetwear atual.",
+  cta:"Ver Oversized",piece:"Boxy White Tee — R$ 79,90"},
+ {badge:"[ GAME DAY // MANDA QUEM VESTE ]",
+  lines:[{t:"CAMISAS DE TIME",c:""},{t:"Game Day",c:"tx-serif acc"},{t:"ORGULHE DE VERDADE.",c:"txt-mut"}],
+  desc:"Jerseys retrô e atuais com estampa em relevo. Do estádio ao rolê, presença garantida.",
+  cta:"Ver Catálogo",piece:"Retrô Nº10 Home — R$ 119,90"},
+ {badge:"[ CASUAL RESORT // VERÃO 2026 ]",
+  lines:[{t:"BERMUDAS EM LINHO",c:""},{t:"& Alfaiataria",c:"tx-serif acc"},{t:"FRESCO & SOFISTICADO.",c:"txt-mut"}],
+  desc:"Linho nobre com corte acima do joelho e cós com cordão de ajuste. Elegância para o verão.",
+  cta:"Ver Bermudas",piece:"Linho Areia Alfaiataria — R$ 79,90"},
+ {badge:"[ SMART CASUAL // TOQUE GELADO ]",
+  lines:[{t:"POLOS TECH &",c:""},{t:"Smart Casual",c:"tx-serif acc"},{t:"DE ALTA PRESENÇA.",c:"txt-mut"}],
+  desc:"Malha estruturada com elastano, zíper frontal inoxidável e caimento alinhado ao peitoral.",
+  cta:"Ver Polos",piece:"Polo Tech Black Zíper — R$ 89,90"}
+];
+
+const CAT_META={
+ esporte:{label:"Esporte",tag:"GAME DAY"},
+ polos:{label:"Polos Tech",tag:"SMART CASUAL"},
+ oversized:{label:"Streetwear",tag:"240G/M²"},
+ bermudas:{label:"Bermudas",tag:"RESORT"},
+ boneis:{label:"Bonés",tag:"TOPPER"}
+};
+
+const products=[
+ {id:1,name:"Polo Tech Black Zíper",cat:"polos",price:89.90,oldPrice:119.90,badge:"BEST SELLER",img:"1620799140408-edc6dcb6d633",desc:"Malha estruturada anti-suor, zíper frontal inoxidável e gola canelada firme.",sizes:["P","M","G","GG"],stock:{P:3,M:6,G:4,GG:2}},
+ {id:2,name:"Polo Navy Blue Classic",cat:"polos",price:79.90,oldPrice:99.90,badge:"CLÁSSICO",img:"1585790641228-36685639c56e",desc:"Azul-marinho versátil, punho canelado e botões madrepérola.",sizes:["P","M","G","GG"],stock:{P:4,M:6,G:4,GG:2}},
+ {id:3,name:"Piquet Heritage Rack",cat:"polos",price:84.90,oldPrice:109.90,badge:"HERITAGE",img:"1626447852910-316278832a8a",desc:"Piquet de gramatura alta no tom perfeito para o escritório e o bar.",sizes:["P","M","G","GG"],stock:{P:3,M:5,G:4,GG:2}},
+ {id:4,name:"Camiseta Oversized Vintage White",cat:"oversized",price:79.90,oldPrice:99.90,badge:"LANÇAMENTO",img:"1574180566232-aaad1b5b8450",desc:"Boxy cut, ombro caído e gola grossa 3cm. Algodão penteado 240g/m².",sizes:["P","M","G","GG"],stock:{P:5,M:8,G:7,GG:3}},
+ {id:5,name:"Graphic Print Purple Haze",cat:"oversized",price:89.90,oldPrice:114.90,badge:"STREET",img:"1626806851009-c98659eb1af0",desc:"Estampa gráfica em silk fosco sobre malha pesada 240g/m².",sizes:["P","M","G","GG"],stock:{P:3,M:5,G:4,GG:2}},
+ {id:6,name:"Bone White Heavyweight Duo",cat:"oversized",price:74.90,oldPrice:94.90,badge:"CLEAN",img:"1521572163474-6864f9cf17ab",desc:"Branco giz pesado, caimento reto — a base branca definitiva.",sizes:["P","M","G","GG"],stock:{P:4,M:6,G:5,GG:2}},
+ {id:7,name:"Jump Black Essential Tee",cat:"oversized",price:69.90,oldPrice:92.90,badge:"CORE",img:"1618453292507-4959ece6429e",desc:"Preto profundo 240g/m², gola reforçada que não deforma.",sizes:["P","M","G","GG"],stock:{P:5,M:7,G:5,GG:3}},
+ {id:8,name:"Camisa Retrô Nº10 Home",cat:"esporte",price:119.90,oldPrice:149.90,badge:"GAME DAY",img:"1759308553457-6f7f0850d9cd",desc:"Jersey retrô número 10 nas costas, tecido respirável e relevo premium.",sizes:["P","M","G","GG"],stock:{P:3,M:6,G:4,GG:2}},
+ {id:9,name:"Camisa Team Blackout Field",cat:"esporte",price:109.90,oldPrice:139.90,badge:"AWAY KIT",img:"1517466787929-bc90951d0974",desc:"Preto e azul elétrico, corte atlético para o dia de jogo.",sizes:["M","G","GG"],stock:{M:4,G:4,GG:2}},
+ {id:10,name:"Camisa Canarinho Street",cat:"esporte",price:114.90,oldPrice:144.90,badge:"SELEÇÃO",img:"1745895400964-e8108fbb112b",desc:"Amarelo-verde para torcer com estilo dentro e fora do campo.",sizes:["P","M","G","GG"],stock:{P:3,M:5,G:3,GG:1}},
+ {id:11,name:"Camisa Verde Rua 2026",cat:"esporte",price:104.90,oldPrice:134.90,badge:"DROP",img:"1772450235863-996680ddb732",desc:"Verde intenso com gola esportiva — verão 2026.",sizes:["P","M","G"],stock:{P:3,M:5,G:3}},
+ {id:12,name:"Bermuda Linho Areia Alfaiataria",cat:"bermudas",price:79.90,oldPrice:109.90,badge:"ALFAIATARIA",img:"1562247879-0eac107b7e76",desc:"Linho misto, corte acima do joelho, cós com cordão de ajuste.",sizes:["38","40","42","44"],stock:{"38":3,"40":5,"42":4,"44":2}},
+ {id:13,name:"Bermuda Surf Plaid",cat:"bermudas",price:69.90,oldPrice:89.90,badge:"PRAIA",img:"1617953644310-e690da9be982",desc:"Xadrez casual de secagem rápida — do mar ao quiosque.",sizes:["M","G","GG"],stock:{M:4,G:4,GG:2}},
+ {id:14,name:"Bermuta Beach Green Core",cat:"bermudas",price:64.90,oldPrice:84.90,badge:"CORE",img:"1621496503717-095a410e1566",desc:"Verde oliva essencial com bolsos faca funcionais.",sizes:["P","M","G","GG"],stock:{P:3,M:5,G:4,GG:2}},
+ {id:15,name:"Bermuda Denim Indigo Relax",cat:"bermudas",price:89.90,oldPrice:114.90,badge:"DENIM",img:"1617951639883-6a10179adb1e",desc:"Denim leve lavado, modelagem relaxada acima do joelho.",sizes:["38","40","42"],stock:{"38":3,"40":4,"42":2}},
+ {id:16,name:"Boné Dad Hat Minimalist EP",cat:"boneis",price:49.90,oldPrice:69.90,badge:"ACESSÓRIO",img:"1516826957135-700dedea698c",desc:"Sarja peletizada, fivela metálica envelhecida e bordado EP.",sizes:["Único"],stock:{"Único":10}},
+ {id:17,name:"Trucker Night Studio Snapback",cat:"boneis",price:59.90,oldPrice:79.90,badge:"STREET",img:"1777447458522-79367cd8e5d3",desc:"Aba reta, tela traseira e patch frontal bordado.",sizes:["Único"],stock:{"Único":8}},
+ {id:18,name:"Flat Cap Vintage Walker",cat:"boneis",price:64.90,oldPrice:84.90,badge:"VINTAGE",img:"1761494355056-a7fa8bde0365",desc:"Boina reta vintage para compor looks de meia-estação.",sizes:["Único"],stock:{"Único":5}}
+];
+
+const LOOKS=[
+ {tag:"SMART CASUAL",title:"Retrato Editorial",desc:"Presença natural para o dia a dia refinado.",img:"1506794778202-cad84cf45f1d"},
+ {tag:"RESORT WEAR",title:"Blazer + Alfaiataria Leve",desc:"Elegância despretensiosa para a noite.",img:"1552374196-1ab2a1c593e8"},
+ {tag:"SUMMER SHORTS",title:"Shorts Praia + Tee Branca",desc:"Frescor total com caimento alinhado.",img:"1562247879-0eac107b7e76"},
+ {tag:"GAME DAY",title:"Jersey Doorway Fit",desc:"Número nas costas, atitude na frente.",img:"1772972321294-f500e4c11e30"},
+ {tag:"CAP STREET",title:"Baseball Cap Night",desc:"Topper firme sob a luz da cidade.",img:"1777447458522-79367cd8e5d3"},
+ {tag:"WHITE CORE",title:"Duo de Tees Essentials",desc:"A base branca que nunca erra.",img:"1521572163474-6864f9cf17ab"}
+];
+
+const IG_FALLBACK=[
+ "1759308553457-6f7f0850d9cd","1574180566232-aaad1b5b8450","1562247879-0eac107b7e76",
+ "1777447458522-79367cd8e5d3","1620799140408-edc6dcb6d633","1506794778202-cad84cf45f1d"
+];
+
+/* ============ HERO SLIDES FROM API ============ */
+async function loadHeroSlides(){
+  try{
+    const res=await fetch('/api/hero-slides',{cache:'no-store'});
+    if(res.ok){
+      const slides=await res.json();
+      if(slides.length>0){
+        window.heroSlidesData=slides.map(s=>({
+          badge:s.badge,
+          lines:[
+            {t:s.title,c:''},
+            {t:s.subtitle,c:s.subtitle_class},
+          ],
+          desc:s.description,
+          cta:s.cta_text,
+          piece:s.piece_text,
+          img:s.image_url,
+        }));
+      }
+    }
+  }catch(e){/* use fallback */}
+}
+
+/* ============ PRODUCTS FROM API ============ */
+async function loadProductsFromAPI(){
+  try{
+    const res=await fetch('/api/products',{cache:'no-store'});
+    if(res.ok){
+      const data=await res.json();
+      if(data.length>0){
+        window.productsData=data.map(p=>({
+          id:p.id,name:p.name,cat:p.category,price:parseFloat(p.price),oldPrice:parseFloat(p.old_price||p.price),
+          badge:p.badge||'',img:p.image,desc:p.description||'',sizes:p.sizes||['P','M','G','GG'],stock:p.stock||{}
+        }));
+      }
+    }
+  }catch(e){/* use fallback */}
+}
+
+/* ============ HELPERS ============ */
+const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+function imgSrc(p,w){return p.imgFull||IMG(p.img,w||800);}
+function safeMM(q){try{return !!(window.matchMedia&&window.matchMedia(q).matches)}catch(e){return false}}
+const REDUCED=safeMM("(prefers-reduced-motion: reduce)");
+
+/* ============ REVEAL ============ */
+const io=("IntersectionObserver" in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.08}):null;
+function observeRv(){const els=document.querySelectorAll(".rv:not(.in)");if(!io){els.forEach(el=>el.classList.add("in"));return;}els.forEach(el=>io.observe(el));}
+function safetyReveal(){setTimeout(function(){document.querySelectorAll(".rv:not(.in)").forEach(function(el){el.classList.add("in");});},1400);}
+
+/* ============ PROGRESSO + PARALLAX ============ */
+const progEl=document.getElementById("scroll-progress");
+function updProgress(){if(!progEl)return;const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;progEl.style.width=(max>0?(scrollY/max)*100:0)+"%";}
+addEventListener("scroll",updProgress,{passive:true});updProgress();
+
+const plxEls=[...document.querySelectorAll("[data-plx]")];
+let plxC=[],plxTick=false;
+function cachePlx(){plxC=plxEls.map(el=>{el.style.transform="";const r=el.getBoundingClientRect();return{el,top:r.top+scrollY,h:r.height,d:+el.dataset.plx||.1};});runPlx();}
+function runPlx(){plxTick=false;const sy=scrollY,vh=innerHeight;for(const o of plxC){const d=(o.top+o.h/2)-(sy+vh/2);o.el.style.transform="translate3d(0,"+(-d*o.d).toFixed(1)+"px,0)";}}
+if(!REDUCED&&plxEls.length){
+  addEventListener("scroll",()=>{if(plxTick)return;plxTick=true;requestAnimationFrame(runPlx);},{passive:true});
+  addEventListener("resize",cachePlx);addEventListener("load",cachePlx);cachePlx();
+}
+
+/* ============ TILT ============ */
+if(!REDUCED&&safeMM("(pointer: fine)")){
+  document.addEventListener("pointermove",e=>{
+    const card=e.target.closest?e.target.closest(".card-hover"):null;if(!card)return;
+    const r=card.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
+    card.classList.add("is-tilting");
+    card.style.transform="perspective(900px) rotateX("+(-py*3).toFixed(2)+"deg) rotateY("+(px*3).toFixed(2)+"deg) translateY(-4px)";
+  });
+  document.addEventListener("pointerout",e=>{
+    const card=e.target.closest?e.target.closest(".card-hover"):null;
+    if(card&&!card.contains(e.relatedTarget)){card.classList.remove("is-tilting");card.style.transform="";}
+  });
+}
+
+/* ============ HERO PARALLAX + SLIDER ============ */
+let currentSlide=0,slideInterval=null;
+(function(){
+  let ticking=false;
+  addEventListener("scroll",()=>{
+    if(ticking)return;ticking=true;
+    requestAnimationFrame(()=>{ticking=false;
+      const hero=document.getElementById("hero-slider"),tb=document.getElementById("hero-text-block");
+      if(!hero||!tb)return;
+      const hh=hero.offsetHeight,y=scrollY;
+      const img=hero.querySelector(".slide-item.active img");
+      if(img)img.style.transform="scale("+(1+Math.min(y/hh,1)*.1)+")";
+      const p=Math.max(0,Math.min(1,(y-hh*.15)/(hh*.4)));
+      tb.style.opacity=1-p;tb.style.transform="translateY("+(p*-36)+"px)";
+    });
+  },{passive:true});
+})();
+function revealHeroText(){
+  setTimeout(()=>document.querySelectorAll("#hero-slider .hero-fade").forEach(el=>el.classList.add("revealed")),80);
+  document.querySelectorAll("#hero-slider .hero-line-inner").forEach((el,i)=>setTimeout(()=>el.classList.add("revealed"),200+i*130));
+}
+function startSlideAutoPlay(){clearInterval(slideInterval);slideInterval=setInterval(nextSlide,5800);}
+function goToSlide(i){
+  const slides=document.querySelectorAll(".slide-item");
+  if(!slides.length)return;
+  currentSlide=((i%slides.length)+slides.length)%slides.length;
+  slides.forEach((s,x)=>s.classList.toggle("active",x===currentSlide));
+  const data=window.heroSlidesData||slidesData;
+  const d=data[currentSlide];if(!d)return;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.innerText=v;};
+  set("slide-badge-text",d.badge);
+  const t=document.getElementById("slide-title");
+  t.innerHTML=d.lines.map((l,k)=>'<span class="hero-line"><span class="hero-line-inner '+l.c+'" style="transition-delay:'+(k*.08)+'s">'+l.t+'</span></span>').join("");
+  void t.offsetWidth;
+  t.querySelectorAll(".hero-line-inner").forEach(el=>requestAnimationFrame(()=>el.classList.add("revealed")));
+  set("slide-desc",d.desc);
+  if(d.piece)set("hero-piece-text",d.piece);
+  set("slide-cta-text",d.cta);
+  set("slide-current-num","0"+(currentSlide+1));
+  const bar=document.getElementById("slide-progress-bar");if(bar)bar.style.width=((currentSlide+1)/slides.length*100)+"%";
+  set("slide-ghost-num","0"+(currentSlide+1));
+}
+function nextSlide(){goToSlide(currentSlide+1);}function prevSlide(){goToSlide(currentSlide-1);}
+function initHero(){
+  revealHeroText();startSlideAutoPlay();
+  const s=document.getElementById("hero-slider");if(!s)return;
+  s.addEventListener("mouseenter",()=>clearInterval(slideInterval));
+  s.addEventListener("mouseleave",startSlideAutoPlay);
+  let tx=0,ty=0;
+  s.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  s.addEventListener("touchend",e=>{
+    const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))dx<0?nextSlide():prevSlide();
+  },{passive:true});
+}
+
+/* ============ EXPLORADOR DE CATEGORIAS ============ */
+let currentCat="esporte",showcaseOffset=0;
+const WINDOW_N=6,STEP=3;
+
+function productsOf(cat){return products.filter(p=>p.cat===cat);}
+
+function priceRow(p,big){
+  return '<div class="mt-auto pt-3 border-t border-border flex items-end justify-between gap-2">'
+  +'<div class="flex items-baseline gap-2 min-w-0">'
+  +'<span class="'+(big?"font-display text-2xl":"font-display text-lg")+' text-ink tabular-nums truncate">'+brl(p.price)+'</span>'
+  +'<span class="text-[10px] sm:text-xs text-ink-faint line-through font-mono tabular-nums">'+brl(p.oldPrice)+'</span></div>'
+  +'<button onclick="event.stopPropagation();quickAddToCart('+p.id+',\''+p.sizes[0]+'\')" title="Adicionar '+p.sizes[0]+'"'
+  +' class="btn-ink shrink-0 !p-0 w-11 h-11 md:w-auto md:h-auto md:!py-2.5 md:!px-4 !text-[12px]">'
+  +'<i data-lucide="plus" class="w-4 h-4"></i><span class="hidden md:inline">Add</span></button>'
+  +'</div>';
+}
+
+function cardHTML(p,big){
+  big=!!big;
+  return '<div class="group h-full cursor-pointer" onclick="openQuickView('+p.id+')">'
+  +'<div class="frame card-hover bg-card border border-border h-full flex flex-col rounded-xl overflow-hidden">'
+  +(big?'<span class="tick tick-tl"></span><span class="tick tick-tr"></span><span class="tick tick-bl"></span><span class="tick tick-br"></span>':'')
+  +'<div class="relative overflow-hidden '+(big?"h-[380px] md:h-[500px]":"aspect-[3/4] sm:aspect-[4/5]")+'">'
+  +'<img src="'+imgSrc(p,big?1100:700)+'" alt="'+p.name+'" loading="lazy"'
+  +' class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-700"/>'
+  +'<div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/40 to-transparent"></div>'
+  +'<span class="absolute top-3.5 left-3.5 z-[3] bg-bg/70 backdrop-blur border border-border px-2.5 py-1 mono-tag !text-ink" style="font-size:9px">'+p.badge+'</span>'
+  +'</div>'
+  +'<div class="p-4 sm:p-5 flex flex-col flex-1">'
+  +'<p class="mono-tag text-gold mb-1.5" style="font-size:9px">'+((CAT_META[p.cat]||{}).tag||"")+'</p>'
+  +'<h3 class="'+(big?"display-sm":"text-[13px] sm:text-[15px] font-bold")+' uppercase tracking-wide text-ink group-hover:text-gold transition-colors line-clamp-2 leading-snug">'+p.name+'</h3>'
+  +'<div class="flex items-center gap-1 mt-2.5 flex-wrap">'+p.sizes.map(sz=>'<span class="border border-border-light text-ink-muted px-1.5 py-0.5 text-[10px] font-mono rounded-md">'+sz+'</span>').join("")+'</div>'
+  +priceRow(p,big)
+  +'</div></div></div>';
+}
+
+function renderChips(){
+  document.getElementById("cat-chips").innerHTML=Object.entries(CAT_META).map(([k,m])=>{
+    const n=productsOf(k).length;if(!n)return"";
+    return '<button class="chip '+(k===currentCat?"on":"")+'" onclick="setCategory(\''+k+'\')">'+m.label+'<span style="opacity:.55">·'+n+'</span></button>';
+  }).join("");
+}
+
+function renderShowcase(){
+  const list=productsOf(currentCat),n=list.length;
+  if(!n){document.getElementById("showcase-hero").innerHTML='<p class="col-span-2 py-24 text-center mono-tag text-ink-muted">EM BREVE</p>';document.getElementById("showcase-grid").innerHTML="";document.getElementById("showcase-dots").innerHTML="";return;}
+  const pages=Math.max(1,Math.ceil(n/STEP));
+  const win=[];for(let i=0;i<Math.min(WINDOW_N,n);i++)win.push(list[(showcaseOffset+i)%n]);
+  document.getElementById("showcase-hero").innerHTML=cardHTML(win[0],true)+cardHTML(win[1],true);
+  document.getElementById("showcase-grid").innerHTML=win.slice(2).map(p=>cardHTML(p)).join("");
+  const active=Math.round(showcaseOffset/STEP)%pages;
+  document.getElementById("showcase-dots").innerHTML=Array.from({length:pages},(_,i)=>'<span class="crs-dot '+(i===active?"on":"")+'" onclick="showcaseGo('+(i*STEP)+')"></span>').join("");
+}
+function setCategory(cat){currentCat=cat;showcaseOffset=0;renderChips();renderShowcase();if(window.lucide)lucide.createIcons();}
+function showcaseNav(dir){const n=productsOf(currentCat).length;if(!n)return;showcaseOffset=((showcaseOffset+dir*STEP)%n+n)%n;renderShowcase();if(window.lucide)lucide.createIcons();}
+function showcaseGo(off){showcaseOffset=off;renderShowcase();}
+function openCategoryInCatalog(cat){filterCategory(cat,null);document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});}
+
+(function(){
+  let x0=null,y0=null;
+  addEventListener("touchstart",e=>{
+    if(!(e.target.closest&&e.target.closest("#colecoes")))return;
+    x0=e.touches[0].clientX;y0=e.touches[0].clientY;
+  },{passive:true});
+  addEventListener("touchend",e=>{
+    if(x0===null)return;
+    const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.4&&e.target.closest&&e.target.closest("#colecoes"))showcaseNav(dx<0?1:-1);
+    x0=y0=null;
+  },{passive:true});
+})();
+
+/* ============ LOOKBOOK CARROSSEL ============ */
+try{
+document.getElementById("lk-track").innerHTML=LOOKS.map(l=>
+ '<article class="crs-card group"><div class="frame card-hover bg-card border border-border rounded-xl overflow-hidden">'
+ +'<span class="tick tick-tl"></span><span class="tick tick-tr"></span><span class="tick tick-bl"></span><span class="tick tick-br"></span>'
+ +'<div class="relative h-[440px] sm:h-[520px] overflow-hidden">'
+ +'<img src="'+IMG(l.img,900)+'" alt="'+l.title+'" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"/>'
+ +'<div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 to-transparent"></div>'
+ +'<span class="absolute top-4 left-4 z-[3] bg-bg/70 backdrop-blur border border-border px-2.5 py-1 mono-tag !text-ink" style="font-size:9px">'+l.tag+'</span>'
+ +'</div><div class="pt-5 pb-5 px-1"><h3 class="display-sm">'+l.title+'</h3><p class="mt-2 text-sm sm:text-base text-ink-muted leading-relaxed">'+l.desc+'</p></div></div></article>').join("");
+}catch(e){console.error(e);}
+
+function initCarousel(rootId,btnPrev,btnNext,dotsId){
+  const root=document.getElementById(rootId),track=root.querySelector(".crs-track"),
+        cards=[].slice.call(track.children),dotsEl=document.getElementById(dotsId);
+  let page=0;
+  function perView(){return innerWidth<640?1:innerWidth<1024?2:3;}
+  function pages(){return Math.max(1,Math.ceil(cards.length/perView()));}
+  function go(p){
+    page=Math.max(0,Math.min(pages()-1,p));
+    const gap=22,w=cards[0]?cards[0].getBoundingClientRect().width+gap:0;
+    track.style.transform="translateX(-"+(page*perView()*w)+"px)";
+    dotsEl.querySelectorAll(".crs-dot").forEach((d,i)=>d.classList.toggle("on",i===page));
+    const BP=document.querySelector(btnPrev),BN=document.querySelector(btnNext);
+    if(BP)BP.disabled=page===0;
+    if(BN)BN.disabled=page===pages()-1;
+  }
+  const bp=document.querySelector(btnPrev),bn=document.querySelector(btnNext);
+  if(bp)bp.onclick=()=>go(page-1);
+  if(bn)bn.onclick=()=>go(page+1);
+  dotsEl.innerHTML=cards.map((_,i)=>'<span class="crs-dot '+(i===0?"on":"")+'" data-p="'+i+'"></span>').join("");
+  dotsEl.onclick=e=>{const d=e.target.closest("[data-p]");if(d)go(+d.getAttribute("data-p"));};
+  let sx=null,sy=null;
+  root.querySelector(".crs-vp").addEventListener("touchstart",e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+  root.querySelector(".crs-vp").addEventListener("touchend",e=>{
+    if(sx===null)return;
+    const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))go(page+(dx<0?1:-1));
+    sx=sy=null;
+  },{passive:true});
+  addEventListener("resize",()=>go(page));
+  go(0);
+}
+try{initCarousel("crs-lk","[data-crs-prev='lk']","[data-crs-next='lk']","lk-dots");}catch(e){console.error(e);}
+
+/* ============ TECLADO GLOBAL ============ */
+function sectionVisibility(el){
+  const r=el.getBoundingClientRect(),vh=innerHeight||1;
+  const inter=Math.max(0,Math.min(r.bottom,vh)-Math.max(r.top,0));
+  return inter/Math.min(r.height,vh);
+}
+function activeZone(){
+  const zones=[["hero",document.getElementById("hero-slider")],["showcase",document.getElementById("colecoes")],["lookbook",document.getElementById("lookbook")]];
+  let best="hero",bv=-1;
+  zones.forEach(([k,el])=>{if(!el)return;const v=sectionVisibility(el);if(v>bv){bv=v;best=k;}});
+  return best;
+}
+addEventListener("keydown",e=>{
+  if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;
+  const tag=(e.target&&e.target.tagName)||"";
+  if(tag==="INPUT"||tag==="SELECT"||tag==="TEXTAREA")return;
+  const dir=e.key==="ArrowRight"?1:-1;
+  const zone=activeZone();
+  if(zone==="showcase"){showcaseNav(dir);e.preventDefault();}
+  else if(zone==="lookbook"){
+    const next=document.querySelector("[data-crs-next='lk']"),prev=document.querySelector("[data-crs-prev='lk']");
+    const btn=dir>0?(next&&!next.disabled?next:null):(prev&&!prev.disabled?prev:null);
+    if(btn){btn.click();e.preventDefault();}
+  }else{dir>0?nextSlide():prevSlide();e.preventDefault();}
+});
+
+/* ============ CATÁLOGO ============ */
+let cart=[],currentQV=null,qvSize=null,currentFilter="todos",currentSize="all";
+
+const FILTERS=[["todos","Tudo"],["esporte","Esporte"],["polos","Polos Tech"],["oversized","Streetwear"],["bermudas","Bermudas"],["boneis","Bonés"]];
+const catFilters=document.getElementById("catalog-filters");
+if(catFilters)catFilters.innerHTML=FILTERS.map(f=>
+ '<button onclick="filterCategory(\''+f[0]+'\',event)" class="cat-btn '+(f[0]==="todos"?"active bg-gold text-bg border-gold":"text-ink-muted hover:text-ink bg-card")+' px-5 py-3 mono-tag whitespace-nowrap border border-border-light rounded-full">'+f[1]+'</button>').join("");
+
+function productCardHTML(p){
+ return '<article class="group card-hover bg-card border border-border flex flex-col rv in rounded-xl overflow-hidden">'
+ +'<div class="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden cursor-pointer" onclick="openQuickView('+p.id+')">'
+ +'<img src="'+imgSrc(p,600)+'" alt="'+p.name+'" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-700"/>'
+ +'<div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/50 to-transparent"></div>'
+ +'<span class="absolute top-3 left-3 z-[3] bg-bg/70 backdrop-blur border border-border px-2 py-0.5 mono-tag !text-ink" style="font-size:9px">'+p.badge+'</span>'
+ +'</div>'
+ +'<div class="p-3 sm:p-5 flex flex-col flex-1">'
+ +'<p class="mono-tag text-gold mb-1.5" style="font-size:9px">'+((CAT_META[p.cat]||{}).label||"")+'</p>'
+ +'<h3 class="text-[13px] sm:text-[15px] font-bold uppercase tracking-wide text-ink leading-snug line-clamp-2 min-h-[2.4rem] sm:min-h-[2.9rem] group-hover:text-gold transition-colors">'+p.name+'</h3>'
+ +'<div class="mt-auto pt-3 flex items-end justify-between gap-2">'
+ +'<div class="flex items-baseline gap-2 min-w-0">'
+ +'<span class="font-display text-lg sm:text-xl text-ink tabular-nums truncate">'+brl(p.price)+'</span>'
+ +'<span class="text-[10px] sm:text-xs text-ink-faint line-through font-mono tabular-nums hidden min-[420px]:inline">'+brl(p.oldPrice)+'</span></div>'
+ +'<button onclick="quickAddToCart('+p.id+',\''+p.sizes[0]+'\')" title="Adicionar '+p.sizes[0]+'"'
+ +' class="btn-ink shrink-0 !p-0 w-11 h-11 sm:w-auto sm:h-auto sm:!py-3 sm:!px-5">'
+ +'<i data-lucide="plus" class="w-4 h-4"></i><span class="hidden sm:inline text-[12px]">Add</span></button>'
+ +'</div>'
+ +'</div></article>';
+}
+
+function renderProducts(list){
+  const c=document.getElementById("products-grid");if(!c)return;
+  list=list||products;
+  if(currentFilter!=="todos")list=list.filter(p=>p.cat===currentFilter);
+  if(currentSize!=="all")list=list.filter(p=>p.sizes.indexOf(currentSize)>-1);
+  if(!list.length){
+    c.innerHTML='<div class="col-span-full py-16 sm:py-24 text-center border border-dashed border-border-light rounded-2xl"><i data-lucide="package-search" class="w-10 h-10 mx-auto text-ink-faint mb-4"></i><p class="display-sm">Nenhuma peça encontrada</p><p class="mono-tag text-ink-muted mt-3">AJUSTE A BUSCA OU OS FILTROS</p></div>';
+    if(window.lucide)lucide.createIcons();return;
+  }
+  c.innerHTML=list.map(productCardHTML).join("");
+  if(window.lucide)lucide.createIcons();
+}
+function setFilterActive(btn){
+  document.querySelectorAll(".cat-btn").forEach(b=>{
+    b.classList.remove("active","bg-gold","text-bg","border-gold");
+    b.classList.add("bg-card","border-border-light","text-ink-muted");
+  });
+  if(btn){btn.classList.add("active","bg-gold","text-bg","border-gold");btn.classList.remove("bg-card","border-border-light","text-ink-muted");}
+}
+function filterCategory(v,e){currentFilter=v;setFilterActive(e&&e.currentTarget?e.currentTarget:null);renderProducts();}
+function filterSize(v,e){
+  currentSize=v;
+  document.querySelectorAll(".size-filter-btn").forEach(b=>{
+    b.classList.remove("active","bg-gold","text-bg","border-gold");b.classList.add("bg-card","border-border-light","text-ink-muted");
+  });
+  const btn=e&&e.currentTarget?e.currentTarget:null;
+  if(btn){btn.classList.add("active","bg-gold","text-bg","border-gold");btn.classList.remove("bg-card","border-border-light","text-ink-muted");}
+  renderProducts();
+}
+function handleSearch(q){
+  const t=q.toLowerCase().trim();
+  renderProducts(products.filter(p=>p.name.toLowerCase().indexOf(t)>-1||p.desc.toLowerCase().indexOf(t)>-1));
+}
+
+/* ============ QUICKVIEW ============ */
+function lockScroll(v){document.body.style.overflow=v?"hidden":"";}
+function openQuickView(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  currentQV=p;qvSize=p.sizes[0];
+  document.getElementById("qv-img").src=imgSrc(p,1100);
+  document.getElementById("qv-badge").innerText=p.badge;
+  document.getElementById("qv-category").innerText=((CAT_META[p.cat]||{}).label||"").toUpperCase()+" // MENSWEAR";
+  document.getElementById("qv-title").innerText=p.name;
+  document.getElementById("qv-price").innerText=brl(p.price);
+  document.getElementById("qv-oldprice").innerText=brl(p.oldPrice);
+  document.getElementById("qv-desc").innerText=p.desc;
+  document.getElementById("qv-sizes").innerHTML=p.sizes.map(sz=>
+    '<button onclick="qvPick(\''+sz+'\',this)" class="qv-size px-6 py-3.5 mono-tag border '+(sz===qvSize?"bg-gold text-bg border-gold font-bold":"border-border-light text-ink hover:border-gold bg-surface")+' !rounded-full">'+sz+'</button>').join("");
+  const m=document.getElementById("quickview-modal");
+  m.classList.remove("hidden");m.classList.add("flex");
+  lockScroll(true);
+}
+function qvPick(sz,btn){
+  qvSize=sz;
+  document.querySelectorAll(".qv-size").forEach(b=>b.className="qv-size px-6 py-3.5 mono-tag border border-border-light text-ink hover:border-gold bg-surface !rounded-full");
+  btn.className="qv-size px-6 py-3.5 mono-tag border bg-gold text-bg border-gold font-bold !rounded-full";
+}
+function closeQuickView(){
+  const m=document.getElementById("quickview-modal");
+  m.classList.add("hidden");m.classList.remove("flex");lockScroll(false);
+}
+function addCurrentProductToCart(){if(!currentQV)return;quickAddToCart(currentQV.id,qvSize);closeQuickView();openCartDrawer();}
+
+/* ============ CARRINHO ============ */
+function quickAddToCart(id,size){
+  size=size||"M";
+  const p=products.find(x=>x.id===id);if(!p)return;
+  if(p.sizes.indexOf(size)<0)size=p.sizes[0];
+  const i=cart.findIndex(it=>it.id===id&&it.size===size);
+  if(i>-1)cart[i].quantity++;else cart.push({id:p.id,name:p.name,price:p.price,img:p.img,imgFull:p.imgFull,size:size,quantity:1});
+  updateCartUI();
+  if(window.confetti)confetti({particleCount:25,spread:55,origin:{y:.9},colors:["#0a0a0a","#c8a94e","#fafafa"]});
+  toastMini("Adicionado à comanda");
+}
+let toastTimer=null;
+function toastMini(msg){
+  let t=document.getElementById("__mini-toast");
+  if(!t){t=document.createElement("div");t.id="__mini-toast";
+    t.style.cssText="position:fixed;bottom:26px;left:50%;transform:translateX(-50%);transition:opacity .3s;z-index:99;background:#141414;color:#fafafa;font-family:'Space Mono';font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:14px 24px;border-radius:999px;border:1px solid #333333;box-shadow:0 12px 30px -12px rgba(0,0,0,.5)";
+    document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity="1";
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>{t.style.opacity="0";},1800);
+}
+function getFee(){const s=document.getElementById("delivery-zone-select");const o=s?s.options[s.selectedIndex]:null;return o?parseFloat(o.getAttribute("data-fee")||0):0;}
+function updateDeliveryFee(){
+  const fee=getFee(),sub=cart.reduce((a,i)=>a+i.price*i.quantity,0);
+  const fEl=document.getElementById("cart-delivery-fee");
+  fEl.textContent=fee===0?"GRÁTIS":"R$ "+fee.toFixed(2).replace(".",",");
+  document.getElementById("cart-subtotal").textContent="R$ "+sub.toFixed(2).replace(".",",");
+  document.getElementById("cart-total").textContent="R$ "+(sub+fee).toFixed(2).replace(".",",");
+}
+function updateCartUI(){
+  document.getElementById("cart-counter").textContent=cart.reduce((a,i)=>a+i.quantity,0);
+  const c=document.getElementById("cart-items-container");if(!c)return;
+  if(!cart.length){
+    c.innerHTML='<div class="h-64 flex flex-col items-center justify-center text-center border border-dashed border-border-light mx-1 rounded-xl"><i data-lucide="shopping-bag" class="w-10 h-10 text-ink-faint mb-4"></i><p class="display-sm">Comanda vazia</p><p class="mono-tag text-ink-muted mt-3">ADICIONE PEÇAS DA ARARA</p></div>';
+    document.getElementById("cart-subtotal").textContent="R$ 0,00";
+    document.getElementById("cart-total").textContent="R$ 0,00";
+    updateDeliveryFee();if(window.lucide)lucide.createIcons();return;
+  }
+   c.innerHTML=cart.map((it,idx)=>
+    '<div class="flex items-center gap-4 p-3.5 bg-surface border border-border rounded-xl">'
+    +'<img src="'+imgSrc(it,200)+'" alt="" class="w-20 h-20 object-cover border border-border rounded-lg"/>'
+    +'<div class="flex-1 min-w-0"><h4 class="text-sm font-bold uppercase tracking-wide text-ink truncate">'+it.name+'</h4>'
+    +'<p class="mono-tag text-gold mt-1.5" style="font-size:10px">TAM '+it.size+' · R$ '+it.price.toFixed(2).replace(".",",")+'</p>'
+    +'<div class="flex items-center gap-2 mt-2.5">'
+    +'<button onclick="changeQty('+idx+',-1)" aria-label="Diminuir" class="w-10 h-10 border border-border-light bg-card hover:border-gold text-ink font-mono rounded-full grid place-items-center shadow-sm">−</button>'
+    +'<span class="font-mono text-sm text-ink w-5 text-center tabular-nums">'+it.quantity+'</span>'
+    +'<button onclick="changeQty('+idx+',1)" aria-label="Aumentar" class="w-10 h-10 border border-border-light bg-card hover:border-gold text-ink font-mono rounded-full grid place-items-center shadow-sm">+</button>'
+   +'</div></div>'
+   +'<div class="text-right shrink-0"><p class="font-mono text-sm font-bold text-ink tabular-nums">R$ '+(it.price*it.quantity).toFixed(2).replace(".",",")+'</p>'
+   +'<button onclick="removeItem('+idx+')" class="mono-tag text-ink-faint hover:text-red-400 mt-3 inline-flex items-center gap-1.5" style="font-size:9px"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i>REMOVER</button>'
+   +'</div></div>').join("");
+  if(window.lucide)lucide.createIcons();
+  updateDeliveryFee();
+}
+function changeQty(i,d){if(!cart[i])return;cart[i].quantity+=d;if(cart[i].quantity<=0)cart.splice(i,1);updateCartUI();}
+function removeItem(i){cart.splice(i,1);updateCartUI();}
+function openCartDrawer(){
+  const o=document.getElementById("cart-drawer-overlay"),d=document.getElementById("cart-drawer");
+  o.classList.remove("hidden");setTimeout(()=>d.classList.remove("translate-x-full"),10);
+  lockScroll(true);updateCartUI();
+}
+function closeCartDrawer(){
+  const o=document.getElementById("cart-drawer-overlay"),d=document.getElementById("cart-drawer");
+  d.classList.add("translate-x-full");setTimeout(()=>o.classList.add("hidden"),300);lockScroll(false);
+}
+
+/* ============ ORDER ============ */
+let selectedPayment = "Dinheiro";
+function selectPayment(method){
+  selectedPayment = method;
+  document.querySelectorAll(".payment-opt").forEach(b => {
+    const label = b.querySelector("span")?.textContent || "";
+    const isActive = label === method;
+    b.classList.toggle("active", isActive);
+    b.style.borderColor = isActive ? "var(--gold)" : "var(--border-light)";
+    b.style.background = isActive ? "var(--surface)" : "var(--card)";
+    b.style.borderWidth = isActive ? "1.5px" : "1px";
+    const icon = b.querySelector("i, svg");
+    if(icon) icon.style.color = isActive ? "var(--gold)" : "";
+  });
+}
+function generateAndSendOrder(){
+  if(!cart.length){alert("Sua comanda esta vazia!");return;}
+  const name=document.getElementById("order-customer-name").value.trim()||"Cliente Estilo Prime";
+  const phone=document.getElementById("order-customer-phone").value.trim()||"(88) 99999-9999";
+  const sel=document.getElementById("delivery-zone-select");
+  const opt=sel.options[sel.selectedIndex],fee=getFee();
+  const sub=cart.reduce((a,i)=>a+i.price*i.quantity,0),total=sub+fee;
+  const num="#EP-"+Math.floor(1000+Math.random()*9000);
+  const now=new Date();
+  const dateStr=now.toLocaleDateString("pt-BR")+" as "+now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+  const items=cart.map(i=>"  "+i.quantity+"x "+i.name+" (Tam: "+i.size+") — R$ "+(i.price*i.quantity).toFixed(2).replace(".",",")).join("\n");
+  const pixInfo="Pix: 88999999999 (Estilo Prime)";
+  const lines=[
+    "*ESTILO PRIME STORE*",
+    "Moda Masculina",
+    "",
+    "Pedido: "+num,
+    "Cliente: "+name+" ("+phone+")",
+    "Data: "+dateStr,
+    "",
+    "--- ITENS ---",
+    items,
+    "",
+    "--- ENTREGA ---",
+    opt.text,
+    "",
+    "*TOTAL: R$ "+total.toFixed(2).replace(".",",")+"*",
+    "",
+    "Forma de pagamento: "+selectedPayment,
+  ];
+  if(selectedPayment==="Pix") lines.push(pixInfo);
+  lines.push("", "Obrigado pela preferencia!");
+  const txt=lines.join("\n");
+  document.getElementById("success-order-id").textContent=num;
+  document.getElementById("formatted-comanda-text").textContent=txt;
+  document.getElementById("success-whatsapp-link").href="https://wa.me/5588999999999?text="+encodeURIComponent(txt);
+  document.getElementById("pix-section").style.display=selectedPayment==="Pix"?"block":"none";
+  const instr=document.getElementById("success-instructions");
+  if(selectedPayment==="Pix") instr.textContent="Copie a chave Pix, envie o comprovante no WhatsApp da loja e pronto.";
+  else if(selectedPayment==="Cartão") instr.textContent="Envie o comprovante do cartão no WhatsApp da loja.";
+  else instr.textContent="Dirija-se ao balcão ou aguarde a entrega. Tenha o valor em mãos.";
+  closeCartDrawer();
+  const m=document.getElementById("order-success-modal");
+  m.classList.remove("hidden");m.classList.add("flex");lockScroll(true);
+  cart=[];updateCartUI();
+  if(window.confetti)confetti({particleCount:70,spread:85,origin:{y:.6},colors:["#0a0a0a","#c8a94e","#fafafa"]});
+}
+function copyPixKey(){
+  navigator.clipboard.writeText(document.getElementById("pix-key-input").value).then(()=>{
+    const b=document.getElementById("copy-btn-text");b.textContent="Copiado!";
+    setTimeout(()=>b.textContent="Copiar",2500);
+  });
+}
+function closeOrderSuccessModal(){const m=document.getElementById("order-success-modal");m.classList.add("hidden");m.classList.remove("flex");lockScroll(false);}
+
+/* ============ INSTAGRAM REAL ============ */
+async function syncInstagram(){
+  const feed=document.getElementById("ig-feed");
+  const status=document.getElementById("ig-status");
+  try{
+    const r=await fetch("/api/instagram",{cache:"no-store"});
+    const j=await r.json();
+    if(j&&j.ok&&j.profile&&j.profile.avatar){
+      ["brand-avatar","ig-avatar","footer-avatar"].forEach(id=>{
+        const el=document.getElementById(id);if(el)el.src=j.profile.avatar;
+      });
+      const fav=document.getElementById("favicon");
+      if(fav){fav.href=j.profile.avatar;fav.type="image/jpeg";}
+      const meta=document.getElementById("ig-meta");
+      if(meta)meta.textContent=(j.profile.fullName?j.profile.fullName+" · ":"")+(j.profile.followers?j.profile.followers.toLocaleString("pt-BR")+" seguidores · ":"")+"Moda Masculina & Streetwear";
+    }
+    if(j&&j.ok&&Array.isArray(j.posts)&&j.posts.length){
+      status.textContent="FEED AO VIVO · ÚLTIMOS POSTS";
+      status.className="mono-tag text-emerald-400";
+      feed.innerHTML=j.posts.slice(0,6).map(p=>
+        '<a href="'+p.url+'" target="_blank" rel="noopener" class="relative aspect-square overflow-hidden group/tile border border-border block rounded-xl">'
+        +'<img src="'+p.thumb+'" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover/tile:scale-105 transition-transform duration-500"/>'
+        +'<span class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover/tile:opacity-100 transition-opacity p-4 flex flex-col justify-end text-left">'
+        +(p.caption?'<span class="text-xs text-white line-clamp-3 leading-relaxed">'+p.caption.replace(/</g,"&lt;")+'</span>':"")
+        +'<span class="mt-2 inline-flex items-center gap-1.5 mono-tag !text-gold-light" style="font-size:9px"><i data-lucide="instagram" class="w-3.5 h-3.5"></i> VER POST</span>'
+        +'</span></a>').join("");
+    }else{
+      status.textContent="ABRA O PERFIL PARA O FEED COMPLETO";
+      renderIgFallback();
+    }
+  }catch(e){
+    status.textContent="ABRA O PERFIL PARA O FEED COMPLETO";
+    renderIgFallback();
+  }
+  if(window.lucide)lucide.createIcons();
+}
+function renderIgFallback(){
+  const feed=document.getElementById("ig-feed");
+  feed.innerHTML=IG_FALLBACK.map(id=>
+   '<a href="https://www.instagram.com/estiloprime.store/" target="_blank" rel="noopener"'
+   +' class="relative aspect-square overflow-hidden group/tile border border-border block rounded-xl">'
+   +'<img src="'+IMG(id,500)+'" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover/tile:scale-105 transition-transform duration-500"/>'
+   +'<span class="absolute inset-0 grid place-items-center bg-bg/50 opacity-0 group-hover/tile:opacity-100 transition-opacity"><i data-lucide="instagram" class="w-7 h-7 text-gold"></i></span>'
+   +'</a>').join("");
+}
+
+/* ============ GALERIA ============ */
+async function loadGallery(){
+  const grid=document.getElementById('gallery-grid');
+  try{
+    const res=await fetch('/api/gallery',{cache:'no-store'});
+    if(res.ok){
+      const photos=await res.json();
+      if(photos.length){
+        grid.innerHTML=photos.map(p=>
+          '<div class="group relative aspect-square overflow-hidden rounded-xl border border-border card-hover cursor-pointer">'
+          +'<img src="'+p.image+'" alt="'+p.title+'" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>'
+          +'<span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">'
+          +'<p class="text-sm font-bold text-ink">'+p.title+'</p>'
+          +'<p class="mono-tag text-gold mt-1" style="font-size:9px">'+p.photo_type+'</p>'
+          +'</span></div>'
+        ).join('');
+      }else{
+        grid.innerHTML='<p class="col-span-full text-center py-12 mono-tag text-ink-muted">EM BREVE</p>';
+      }
+    }
+  }catch(e){
+    grid.innerHTML='<p class="col-span-full text-center py-12 mono-tag text-ink-muted">EM BREVE</p>';
+  }
+}
+
+/* ============ BOOT ============ */
+async function boot(){
+  await loadHeroSlides();
+  await loadProductsFromAPI();
+  if(window.lucide)lucide.createIcons();
+  try{renderChips();renderShowcase();}catch(e){console.error(e);}
+  try{renderProducts();}catch(e){console.error(e);}
+  try{initHero();}catch(e){console.error(e);}
+  try{observeRv();setTimeout(observeRv,400);}catch(e){console.error(e);}
+  loadGallery();
+  safetyReveal();
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  boot();
+  syncInstagram();
+});
+if(document.readyState!=="loading"){boot();syncInstagram();}
+</script>
+</body>
+</html>
