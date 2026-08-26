@@ -1,0 +1,9 @@
+frames
+backend
+scripts
+*.log
+dev.log
+dev2.log
+.env.local
+.env.vercel.local
+.next
