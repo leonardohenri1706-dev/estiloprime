@@ -55,3 +55,5 @@ backend/db.sqlite3
 *.log
 dev*.log
 
+.vercel
+.env*
